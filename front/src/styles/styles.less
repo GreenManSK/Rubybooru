@@ -1,0 +1,59 @@
+@import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+@import 'variables';
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: @backgroundColor;
+  color: @textColor;
+}
+
+.logo {
+  margin: 10px auto 0;
+  max-width: @logoWidth;
+  a {
+    @r: 0.7;
+    display: block;
+    max-height: @logoHeight;
+    width: 100%;
+    padding-top: 100% * (@logoHeight / @logoWidth);
+    background: url(@logoUrl);
+    background-size: cover;
+    span {
+      display: none;
+    }
+  }
+}
+
+.menu {
+  .search {
+    form {
+      label {
+        display: none;
+      }
+      input {
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 0 5px;
+        border-radius: 2px;
+        border: 1px solid @darkPink;
+        background: lighten(@lightPink, 20%);
+        color: @darkPink;
+      }
+    }
+  }
+}
+
+//.content {
+//  background: indianred;
+//
+//  .img {
+//    border: 5px solid darkred;
+//    height: 100px;
+//    text-align: center;
+//  }
+//}
+
+@import 'responsive';
