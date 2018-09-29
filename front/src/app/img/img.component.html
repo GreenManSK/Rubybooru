@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="menu">
+    <h1 class="logo"><a title="Rubybooru" href="/"><span>Rubybooru</span></a></h1>
+    <nav>
+      <ul>
+        <li><a href="#list">Folders</a></li>
+        <li><a href="#list">New link</a></li>
+      </ul>
+    </nav>
+    <div class="search">
+      <form>
+        <label for="searchInput">Search</label>
+        <input id="searchInput" placeholder="kurosawa_ruby">
+        <select id="searchOrder">
+          <option>Newest</option>
+          <option>Oldest</option>
+          <option>Size</option>
+          <option>Width</option>
+          <option>Height</option>
+        </select>
+      </form>
+    </div>
+    <div class="info">
+      <div class="line">
+        <strong>Date:</strong> 29.09.2018, 15:24
+      </div>
+      <div class="line">
+        <strong>Size:</strong>&nbsp;<a href="#down">100x100 (50 MB)</a>
+      </div>
+      <div class="line link">
+        <strong>Source:</strong>&nbsp;<a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=37773697">pixiv.net/member_illust.php?mode=medium&illust_id=37773697</a>
+      </div>
+      <div class="line link">
+        <strong>Info source:</strong>&nbsp;<a href="https://danbooru.donmai.us/posts/1484540">danbooru.donmai.us/posts/1484540</a>
+      </div>
+    </div>
+    <ul class="tags">
+      <li *ngFor="let type of tagTypes" [class]="type">
+        <a href="#">
+          <fa-icon [icon]="faSquare"></fa-icon>
+          ore_no_imouto_ga_konnani_kawaii_wake_ga_nai </a>
+      </li>
+    </ul>
+  </div>
+  <div class="content">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#files"><fa-icon [icon]="faFolder"></fa-icon></a>
+          D
+        </li>
+        <li class="breadcrumb-item">Japan</li>
+        <li class="breadcrumb-item"><a href="#">Obrazky</a></li>
+        <li class="breadcrumb-item"><a href="#">Sort</a></li>
+        <li class="breadcrumb-item"><a href="#">Obrazky</a></li>
+        <li class="breadcrumb-item"><a href="#">Danganronpa Kibou no Gakuen to Zetsubou no Koukousei - The Animation</a></li>
+        <li class="breadcrumb-item active" aria-current="page">yande.re 484128 ass breast_grab cameltoe erect_nipples garter_belt hisasi no_bra pantsu stockings
+          thighhighs.jpg</li>
+      </ol>
+    </nav>
+    <div class="img-view">
+     <img class="mini"
+          (click)="toggleMini($event.target)"
+       src="https://files.yande.re/image/8e4650a1a84f0efcaf218c4d51e98652/yande.re%20485165%20ass%20cosplay%20gantz%20heels%20nier_automata%20no_bra%20official_watermark%20pantsu%20sakimichan%20thighhighs%20thong%20yorha_no.2_type_b%20yorha_type_a_no._2.jpg">
+  </div>
+</div>

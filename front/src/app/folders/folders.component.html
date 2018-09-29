@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="menu">
+    <h1 class="logo"><a title="Rubybooru" href="/"><span>Rubybooru</span></a></h1>
+    <nav>
+      <ul>
+        <li><a href="#list">Folders</a></li>
+        <li><a href="#list">New link</a></li>
+      </ul>
+    </nav>
+    <div class="search">
+      <form>
+        <label for="searchInput">Search</label>
+        <input id="searchInput" placeholder="kurosawa_ruby">
+        <select id="searchOrder">
+          <option>Newest</option>
+          <option>Oldest</option>
+          <option>Size</option>
+          <option>Width</option>
+          <option>Height</option>
+        </select>
+      </form>
+    </div>
+    <ul class="tags">
+      <li *ngFor="let type of tagTypes" [class]="type">
+        <a href="#">
+          <fa-icon [icon]="faSquare"></fa-icon>
+          ore_no_imouto_ga_konnani_kawaii_wake_ga_nai <span>(1289)</span></a>
+      </li>
+    </ul>
+  </div>
+  <div class="content">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#files">
+            <fa-icon [icon]="faFolder"></fa-icon>
+          </a>
+          D
+        </li>
+        <li class="breadcrumb-item">Japan</li>
+        <li class="breadcrumb-item"><a href="#">Obrazky</a></li>
+        <li class="breadcrumb-item"><a href="#">Sort</a></li>
+        <li class="breadcrumb-item"><a href="#">Obrazky</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Danganronpa Kibou no Gakuen to Zetsubou no Koukousei -
+          The Animation
+        </li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div *ngFor="let item of arrayOne(23); let i = index;"
+           class="col-xl-2 col-lg-3 col-md-3 col-sm-4">
+        <a href="#folder" [ngClass]="{'folder-container': true, 'dotted': i == 0}">
+          <fa-icon [icon]="i == 0 ? faEllipsisH : faFolder"></fa-icon>
+          <span *ngIf="i > 0">Danganronpa Kibou no Gakuen to Zetsubou no Koukousei - The Animation</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

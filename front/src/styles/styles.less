@@ -30,6 +30,34 @@ body {
 .menu {
   width: @menuWidth;
   float: left;
+
+  nav {
+    font-size: 1.5rem;
+    ul {
+      padding: 0;
+      margin: 0 0 1rem;
+      list-style: square;
+      text-align: center;
+      li {
+        &::before {
+          content: '\25A0';
+          display: inline-block;
+          font-size: 1rem;
+          padding: 4px .7rem 0;
+          vertical-align: top;
+        }
+        &:first-child::before {
+          display: none;
+        }
+        color: @darkenLightPink;
+        display: inline-block;
+        a {
+          color: @lightPink;
+        }
+      }
+    }
+  }
+
   .search {
     form {
       label {
@@ -53,6 +81,26 @@ body {
         border-left: none;
         border-radius: 0 @borderRadius @borderRadius 0;
       }
+    }
+  }
+
+  .info {
+    font-size: 1.3rem;
+    clear: both;;
+    padding: .5rem 1rem 0;
+    .line {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    strong {
+      color: @textColor;
+    }
+    .line.link {
+      color: @lightPink;
+    }
+    a {
+      color: @lightPink;
     }
   }
 
@@ -104,6 +152,9 @@ body {
         font-size: 1.2rem;
         color: inherit;
         text-decoration: none;
+        span {
+          color: @textColor;
+        }
         &:hover {
           text-decoration: underline;
         }
@@ -147,7 +198,7 @@ body {
         color: @lightPink;
         width: 100%;
         display: block;
-        background: #111;
+        background: @darkBg;
       }
 
       &:hover {
@@ -158,7 +209,66 @@ body {
     }
   }
 
-  nav {
+  a.folder-container {
+    display: block;
+    font-size: 1.4rem;
+    text-align: center;
+    color: @lightPink;
+    border: 1px solid @lightPink;
+    background: @darkBg;
+    border-radius: 5 * @borderRadius;
+    height: calc(100% - 1rem);
+    margin-bottom: 1rem;
+    opacity: .6;
+    text-decoration: none;
+
+    &.dotted {
+      padding: 3rem;
+    }
+
+    &:active, &:focus {
+      opacity: .8;
+    }
+    &:hover, &.active {
+      opacity: 1;
+    }
+    fa-icon {
+      display: block;
+      margin: 0 auto;
+      font-size: 6rem;
+    }
+    span {
+      display: block;
+    }
+  }
+
+  .img-view {
+    text-align: center;
+    img {
+      cursor: pointer;
+      &.mini {
+        max-width: 100%;
+        max-height: calc(100vh);
+      }
+    }
+  }
+
+  nav .breadcrumb {
+    font-size: 1.4rem;
+    background: @darkBg;
+    color: @textColor;
+    .active {
+      color: @textColor;
+    }
+    a {
+      color: @darkenLightPink;
+      &:hover, &:focus, &:active {
+        color: @lightPink;
+      }
+    }
+  }
+
+  nav.paginator {
     text-align: center;
     font-size: 1.4rem;
     a {
@@ -167,7 +277,8 @@ body {
       margin: 0 .3rem;
       color: @lightPink;
       border: 1px solid @lightPink;
-      background: #111;
+      border-radius: @borderRadius;
+      background: @darkBg;
       opacity: .6;
       &:active, &:focus {
         opacity: .8;

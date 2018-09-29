@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { faAngleDoubleLeft, faAngleDoubleRight, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import { faAngleDoubleLeft, faAngleDoubleRight, faQuestion, faFolder } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  selector: 'app-gallery',
+  templateUrl: './gallery.component.html',
+  styleUrls: ['./gallery.component.less']
 })
-export class AppComponent {
-  title = 'app';
+export class GalleryComponent implements OnInit {
   faSquare = faQuestion;
   faAngleDoubleLeft = faAngleDoubleLeft;
   faAngleDoubleRight = faAngleDoubleRight;
+  faFolder = faFolder;
   tagTypes = [
     'copyright',
     'circle',
@@ -27,8 +27,13 @@ export class AppComponent {
     'general',
     'general'
   ];
+  constructor() { }
+
+  ngOnInit() {
+  }
 
   arrayOne( n: number ): any[] {
     return Array(n);
   }
+
 }
