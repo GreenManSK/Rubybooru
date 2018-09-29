@@ -3,7 +3,7 @@ package net.greenmanov.anime.rubybooru;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.ext.web.Router;
+import net.greenmanov.anime.rubybooru.api.Router;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Rubybooru server runner
  */
-public class ServerRunner {
+final public class ServerRunner {
     private static final Logger LOGGER = LogManager.getLogger(ServerRunner.class.getName());
 
     public static void main(String[] args) {
@@ -23,9 +23,10 @@ public class ServerRunner {
         }
         HttpServer server = vertx.createHttpServer(serverOptions);
 
-        Router router = Router.router(vertx);
+        Router router = new Router(vertx);
+        router.loadAnnotatedRoutes();
 
-        server.requestHandler(router::accept).listen();
+        server.requestHandler(router.getRouter()::accept).listen();
         LOGGER.printf(Level.INFO,
                 "Server listening: %s://%s:%d",
                 serverOptions.isSsl() ? "https" : "http",
