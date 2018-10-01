@@ -1,4 +1,5 @@
 target/*
 .log
 src/main/resources/config.properties
+src/main/resources/META-INF/persistence.xml
 *.iml

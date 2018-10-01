@@ -16,9 +16,9 @@ final public class Configuration {
     private static final Logger LOGGER = LogManager.getLogger(Configuration.class.getName());
     private static final String CONFIG_FILE = "/config.properties";
 
-    private static final String PORT_PROPERTY = "port";
-    private static final String HOST_PROPERTY = "host";
-    private static final String SSL_PROPERTY = "ssl";
+    private static final String PORT_PROPERTY = "server.port";
+    private static final String HOST_PROPERTY = "server.host";
+    private static final String SSL_PROPERTY = "server.ssl";
 
     /**
      * Return server or null if config file do not exists
