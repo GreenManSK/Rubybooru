@@ -1,8 +1,10 @@
 package net.greenmanov.anime.rubybooru.database.daos;
 
+import net.greenmanov.anime.rubybooru.database.MainDatabase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.function.Consumer;
@@ -12,14 +14,14 @@ import java.util.function.Consumer;
  */
 abstract public class AJpaDao {
     private static final Logger LOGGER = LogManager.getLogger(AJpaDao.class.getName());
-    protected final EntityManager em;
 
-    public AJpaDao(EntityManager em) {
-        this.em = em;
-    }
+    @Inject
+    @MainDatabase
+    protected EntityManager em;
 
     /**
      * Execute action in transaction
+     *
      * @param action Action
      */
     protected void executeInsideTransaction(Consumer<EntityManager> action) {

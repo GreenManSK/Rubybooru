@@ -7,11 +7,13 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
-import net.greenmanov.anime.rubybooru.database.IEntityManagerProvider;
+import net.greenmanov.anime.rubybooru.database.MainDatabase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.internal.SessionImpl;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -20,10 +22,12 @@ import java.sql.SQLException;
  */
 final public class LiquibaseMigration {
     private static final Logger LOGGER = LogManager.getLogger(LiquibaseMigration.class.getName());
-    private IEntityManagerProvider provider;
 
-    public LiquibaseMigration(IEntityManagerProvider provider) {
-        this.provider = provider;
+    private final EntityManager em;
+
+    @Inject
+    public LiquibaseMigration(@MainDatabase EntityManager em) {
+        this.em = em;
     }
 
     /**
@@ -32,7 +36,7 @@ final public class LiquibaseMigration {
      * @param future Future when liquibase ends
      */
     public void run(Future<Void> future) {
-        try (Connection connection = provider.getEntityManager().unwrap(SessionImpl.class).connection()) {
+        try (Connection connection = em.unwrap(SessionImpl.class).connection()) {
             Database database = null;
             Liquibase liquibase = null;
 
