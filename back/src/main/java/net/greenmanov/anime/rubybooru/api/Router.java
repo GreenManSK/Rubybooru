@@ -4,17 +4,16 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.handler.BodyHandler;
 import net.greenmanov.anime.rubybooru.api.annotation.RouteURL;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * Used for finding all routes with RouteURL annotation to add them to the server router
  */
 final public class Router {
-    private static final Logger LOGGER = LogManager.getLogger(Router.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Router.class);
     private io.vertx.ext.web.Router router;
 
     /**
@@ -36,11 +35,7 @@ final public class Router {
         for (Class<?> cl : ref.getTypesAnnotatedWith(RouteURL.class)) {
             RouteURL routeURL = cl.getAnnotation(RouteURL.class);
             if (!IRoute.class.isAssignableFrom(cl)) {
-                LOGGER.printf(
-                        Level.ERROR,
-                        "Class %s uses RouteURL annotation but do not implement IRoute interface",
-                        cl.getName()
-                );
+                LOGGER.error("Class {} uses RouteURL annotation but do not implement IRoute interface", cl.getName());
                 continue;
             }
             try {
@@ -60,7 +55,7 @@ final public class Router {
      * @param route  Route object
      */
     public void addRoute(String url, HttpMethod method, IRoute route) {
-        LOGGER.printf(Level.INFO,"Adding route: %s", url);
+        LOGGER.info("Adding route: {}", url);
         router.route(method, url).handler(route::handel);
     }
 

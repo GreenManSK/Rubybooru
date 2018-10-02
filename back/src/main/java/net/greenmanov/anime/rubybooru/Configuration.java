@@ -1,9 +1,9 @@
 package net.greenmanov.anime.rubybooru;
 
 import io.vertx.core.http.HttpServerOptions;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import java.util.Properties;
  * Provides configurations for all parts of the application
  */
 final public class Configuration {
-    private static final Logger LOGGER = LogManager.getLogger(Configuration.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class.getName());
     private static final String CONFIG_FILE = "/config.properties";
 
     private static final String PORT_PROPERTY = "server.port";
@@ -27,7 +27,7 @@ final public class Configuration {
     public static HttpServerOptions getServerOptions() {
         InputStream propertiesStream = Configuration.class.getResourceAsStream(CONFIG_FILE);
         if (propertiesStream == null) {
-            LOGGER.printf(Level.ERROR, "You need to create %s file in resources to use the server", CONFIG_FILE);
+            LOGGER.error("You need to create {} file in resources to use the server", CONFIG_FILE);
             return null;
         }
         try {
@@ -41,7 +41,7 @@ final public class Configuration {
 
             return options;
         } catch (IOException e) {
-            LOGGER.error(e);
+            LOGGER.error("Couldn't get server options from config file", e);
         }
         return null;
     }

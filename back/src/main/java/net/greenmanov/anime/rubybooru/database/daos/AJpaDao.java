@@ -1,8 +1,9 @@
 package net.greenmanov.anime.rubybooru.database.daos;
 
 import net.greenmanov.anime.rubybooru.database.MainDatabase;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ import java.util.function.Consumer;
  * Provides basic transaction needs for JPA DAO
  */
 abstract public class AJpaDao {
-    private static final Logger LOGGER = LogManager.getLogger(AJpaDao.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AJpaDao.class.getName());
 
     @Inject
     @MainDatabase
@@ -32,7 +33,7 @@ abstract public class AJpaDao {
             tx.commit();
         } catch (RuntimeException e) {
             tx.rollback();
-            LOGGER.error(e);
+            LOGGER.error("Error while executing transaction", e);
             throw e;
         }
     }

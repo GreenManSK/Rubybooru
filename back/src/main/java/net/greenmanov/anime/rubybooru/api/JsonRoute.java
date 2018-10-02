@@ -5,9 +5,8 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -15,7 +14,7 @@ import java.util.Map;
  * Routes used for test api
  */
 abstract public class JsonRoute extends ARoute {
-    private static final Logger LOGGER = LogManager.getLogger(IRoute.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IRoute.class);
     private static final String CONTENT_TYPE = "application/test";
 
     /**
@@ -35,7 +34,7 @@ abstract public class JsonRoute extends ARoute {
         try {
             json = body.toJsonObject();
         } catch (Exception e) {
-            LOGGER.printf(Level.WARN, "Invalid JSON for route %s", request.uri());
+            LOGGER.warn("Invalid JSON for route {}", request.uri());
             response.setStatusCode(400);
             response.setStatusMessage("Invalid JSON");
             response.end();

@@ -7,18 +7,17 @@ import io.vertx.core.http.HttpServerOptions;
 import net.greenmanov.anime.rubybooru.Configuration;
 import net.greenmanov.anime.rubybooru.Runner;
 import net.greenmanov.anime.rubybooru.api.Router;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Verticle for running API server
  */
 final public class ServerVerticle extends AbstractVerticle {
-    private static final Logger LOGGER = LogManager.getLogger(Runner.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(Runner.class.getName());
 
     @Override
-    public void start(Future<Void> startFuture) throws Exception {
+    public void start(Future<Void> startFuture) {
         LOGGER.info("Starting the server...");
         HttpServerOptions serverOptions = Configuration.getServerOptions();
         if (serverOptions == null) {
@@ -30,8 +29,8 @@ final public class ServerVerticle extends AbstractVerticle {
         router.loadAnnotatedRoutes();
         server.requestHandler(router.getRouter()::accept).listen(res -> {
             if (res.succeeded()) {
-                LOGGER.printf(Level.INFO,
-                        "Server listening: %s://%s:%d",
+                LOGGER.info(
+                        "Server listening: {}://{}:{}",
                         serverOptions.isSsl() ? "https" : "http",
                         serverOptions.getHost(),
                         serverOptions.getPort()

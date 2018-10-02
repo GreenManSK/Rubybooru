@@ -1,0 +1,26 @@
+<!-- configuration for logback http://logback.qos.ch/ -->
+<configuration>
+    <!-- logs to console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%highlight([%d{HH:mm:ss}] [%level] [%logger{10} %file:%line] %msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>.log</file>
+        <encoder>
+            <pattern>[%date %d{HH:mm:ss}] [%level] [%logger %file:%line] %msg%n%throwable%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- default logging level -->
+    <root level="info">
+        <!-- reference to the used appender -->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE" />
+    </root>
+    <!-- list of logger prefixes with non-default logging levels -->
+    <logger name="org" level="off"/>
+    <logger name="net.greenmanov.anime" level="all"/>
+</configuration>

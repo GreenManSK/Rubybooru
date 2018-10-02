@@ -8,9 +8,9 @@ import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import net.greenmanov.anime.rubybooru.database.MainDatabase;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.internal.SessionImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -21,7 +21,7 @@ import java.sql.SQLException;
  * Class for running liquibase migrations
  */
 final public class LiquibaseMigration {
-    private static final Logger LOGGER = LogManager.getLogger(LiquibaseMigration.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(LiquibaseMigration.class.getName());
 
     private final EntityManager em;
 

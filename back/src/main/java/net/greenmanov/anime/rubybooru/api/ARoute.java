@@ -5,9 +5,8 @@ import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import net.greenmanov.anime.rubybooru.api.annotation.RouteParam;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
  * Abstract implementation of IRoute with support of automatic extraction of parameter using @RouteParam annotation
  */
 abstract public class ARoute implements IRoute {
-    private static final Logger LOGGER = LogManager.getLogger(IRoute.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IRoute.class);
 
     /**
      * Handle request
@@ -37,7 +36,7 @@ abstract public class ARoute implements IRoute {
 
             }
         } catch (ParamType.ConvertException e) {
-            LOGGER.printf(Level.WARN, "Invalid parameter type on route %s", request.uri());
+            LOGGER.warn("Invalid parameter type on route {}", request.uri());
             response.setStatusCode(400);
             response.setStatusMessage("Invalid parameter");
             response.end();
