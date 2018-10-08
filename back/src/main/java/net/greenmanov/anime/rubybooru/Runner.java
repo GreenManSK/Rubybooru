@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * Rubybooru runner
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 final public class Runner {
     private static final Logger LOGGER = LoggerFactory.getLogger(Runner.class.getName());

@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Verticle for running API server
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 final public class ServerVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerVerticle.class.getName());

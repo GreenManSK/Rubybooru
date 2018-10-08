@@ -4,6 +4,8 @@ import net.greenmanov.anime.rubybooru.database.entities.Dir;
 
 /**
  * Dao for Dir entity
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class DirDao extends AJpaDao {
     public DirDao() {

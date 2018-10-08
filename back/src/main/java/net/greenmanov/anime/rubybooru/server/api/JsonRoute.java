@@ -12,6 +12,8 @@ import java.util.Map;
 
 /**
  * Routes used for test api
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 abstract public class JsonRoute extends ARoute {
     private static final Logger LOGGER = LoggerFactory.getLogger(IRoute.class);

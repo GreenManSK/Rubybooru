@@ -7,6 +7,8 @@ import javax.persistence.Persistence;
 
 /**
  * Entity manager producer
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class EntityManagerProducer {
     @Produces

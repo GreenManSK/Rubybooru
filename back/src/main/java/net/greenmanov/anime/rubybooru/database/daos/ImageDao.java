@@ -4,6 +4,8 @@ import net.greenmanov.anime.rubybooru.database.entities.Image;
 
 /**
  * DAO for Image entity
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class ImageDao extends AJpaDao {
     public ImageDao() {

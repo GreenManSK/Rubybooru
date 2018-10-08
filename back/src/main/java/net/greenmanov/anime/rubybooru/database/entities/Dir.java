@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Directory entity
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 @Entity
 @Table(name = "dirs")

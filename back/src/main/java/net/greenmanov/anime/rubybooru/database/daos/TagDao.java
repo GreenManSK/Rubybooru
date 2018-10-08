@@ -4,6 +4,8 @@ import net.greenmanov.anime.rubybooru.database.entities.Tag;
 
 /**
  * DAO for Tag entity
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class TagDao extends AJpaDao {
     public TagDao() {

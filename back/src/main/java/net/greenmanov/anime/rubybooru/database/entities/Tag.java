@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 /**
  * Tag entity
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 @Entity
 @Table(name = "tags")

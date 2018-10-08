@@ -19,6 +19,8 @@ import java.sql.SQLException;
 
 /**
  * Class for running liquibase migrations
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 final public class LiquibaseMigration {
     private static final Logger LOGGER = LoggerFactory.getLogger(LiquibaseMigration.class.getName());

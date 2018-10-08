@@ -13,6 +13,8 @@ import java.util.Map;
 
 /**
  * Abstract implementation of IRoute with support of automatic extraction of parameter using @RouteParam annotation
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 abstract public class ARoute implements IRoute {
     private static final Logger LOGGER = LoggerFactory.getLogger(IRoute.class);

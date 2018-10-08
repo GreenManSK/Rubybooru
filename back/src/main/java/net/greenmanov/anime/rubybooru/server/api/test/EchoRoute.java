@@ -7,6 +7,11 @@ import net.greenmanov.anime.rubybooru.server.api.annotation.RouteURL;
 
 import java.util.Map;
 
+/**
+ * Route for echoing request body of post requests
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
+ */
 @RouteURL(url = "/test/echo/", method = HttpMethod.POST)
 final public class EchoRoute extends JsonRoute {
     public EchoRoute() {

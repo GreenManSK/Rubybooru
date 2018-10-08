@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Image entity
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 @Entity
 @Table(name = "images")

@@ -2,6 +2,8 @@ package net.greenmanov.anime.rubybooru.server.api;
 
 /**
  * Route parameter type
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public enum ParamType {
     INT, STRING;

@@ -11,6 +11,11 @@ import net.greenmanov.anime.rubybooru.server.api.annotation.RouteURL;
 
 import java.util.Map;
 
+/**
+ * Route for echoing GET parameter
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
+ */
 @RouteURL(url = "/test/echo/:param/", method = HttpMethod.GET)
 @RouteParam(name = EchoParamRoute.PARAM, type = ParamType.STRING)
 final public class EchoParamRoute extends ARoute {

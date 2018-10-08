@@ -11,6 +11,8 @@ import java.util.function.Consumer;
 
 /**
  * Provides basic transaction needs for JPA DAO
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 abstract public class AJpaDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(AJpaDao.class.getName());

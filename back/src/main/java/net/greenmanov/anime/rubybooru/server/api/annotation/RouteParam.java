@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 
 /**
  * Specify parameter of route
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

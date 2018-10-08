@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Used for finding all routes with RouteURL annotation to add them to the server router
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 final public class Router {
     private static final Logger LOGGER = LoggerFactory.getLogger(Router.class);

@@ -10,6 +10,8 @@ import javax.inject.Inject;
 
 /**
  * Verticle for working with database
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class DatabaseVerticle extends AbstractVerticle {
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseVerticle.class.getName());

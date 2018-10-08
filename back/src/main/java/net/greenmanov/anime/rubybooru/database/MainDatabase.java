@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation for specifying entity manager of main database
+ *
+ * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
