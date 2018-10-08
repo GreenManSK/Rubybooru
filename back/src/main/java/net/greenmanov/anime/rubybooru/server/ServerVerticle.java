@@ -5,7 +5,7 @@ import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import net.greenmanov.anime.rubybooru.Configuration;
-import net.greenmanov.anime.rubybooru.api.Router;
+import net.greenmanov.anime.rubybooru.server.api.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

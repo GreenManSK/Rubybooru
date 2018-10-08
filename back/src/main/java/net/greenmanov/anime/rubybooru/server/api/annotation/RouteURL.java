@@ -1,4 +1,4 @@
-package net.greenmanov.anime.rubybooru.api.annotation;
+package net.greenmanov.anime.rubybooru.server.api.annotation;
 
 import io.vertx.core.http.HttpMethod;
 

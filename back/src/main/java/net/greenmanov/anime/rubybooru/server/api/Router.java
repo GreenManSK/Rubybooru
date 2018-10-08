@@ -1,9 +1,9 @@
-package net.greenmanov.anime.rubybooru.api;
+package net.greenmanov.anime.rubybooru.server.api;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.handler.BodyHandler;
-import net.greenmanov.anime.rubybooru.api.annotation.RouteURL;
+import net.greenmanov.anime.rubybooru.server.api.annotation.RouteURL;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

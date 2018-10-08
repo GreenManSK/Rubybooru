@@ -1,13 +1,13 @@
-package net.greenmanov.anime.rubybooru.api.test;
+package net.greenmanov.anime.rubybooru.server.api.test;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
-import net.greenmanov.anime.rubybooru.api.ARoute;
-import net.greenmanov.anime.rubybooru.api.ParamType;
-import net.greenmanov.anime.rubybooru.api.annotation.RouteParam;
-import net.greenmanov.anime.rubybooru.api.annotation.RouteURL;
+import net.greenmanov.anime.rubybooru.server.api.ARoute;
+import net.greenmanov.anime.rubybooru.server.api.ParamType;
+import net.greenmanov.anime.rubybooru.server.api.annotation.RouteParam;
+import net.greenmanov.anime.rubybooru.server.api.annotation.RouteURL;
 
 import java.util.Map;
 

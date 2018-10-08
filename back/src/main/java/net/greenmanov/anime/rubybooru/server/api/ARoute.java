@@ -1,10 +1,10 @@
-package net.greenmanov.anime.rubybooru.api;
+package net.greenmanov.anime.rubybooru.server.api;
 
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
-import net.greenmanov.anime.rubybooru.api.annotation.RouteParam;
+import net.greenmanov.anime.rubybooru.server.api.annotation.RouteParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package net.greenmanov.anime.rubybooru.api;
+package net.greenmanov.anime.rubybooru.server.api;
 
 import io.vertx.ext.web.RoutingContext;
 

@@ -1,9 +1,9 @@
-package net.greenmanov.anime.rubybooru.api.test;
+package net.greenmanov.anime.rubybooru.server.api.test;
 
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
-import net.greenmanov.anime.rubybooru.api.JsonRoute;
-import net.greenmanov.anime.rubybooru.api.annotation.RouteURL;
+import net.greenmanov.anime.rubybooru.server.api.JsonRoute;
+import net.greenmanov.anime.rubybooru.server.api.annotation.RouteURL;
 
 import java.util.Map;
 

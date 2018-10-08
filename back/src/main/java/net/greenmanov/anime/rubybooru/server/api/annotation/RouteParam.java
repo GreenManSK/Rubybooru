@@ -1,6 +1,6 @@
-package net.greenmanov.anime.rubybooru.api.annotation;
+package net.greenmanov.anime.rubybooru.server.api.annotation;
 
-import net.greenmanov.anime.rubybooru.api.ParamType;
+import net.greenmanov.anime.rubybooru.server.api.ParamType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
