@@ -22,6 +22,7 @@ import java.sql.SQLException;
  */
 final public class LiquibaseMigration {
     private static final Logger LOGGER = LoggerFactory.getLogger(LiquibaseMigration.class.getName());
+    private static final String CHANGELOG_PATH = "liquibase/changelog.xml";
 
     private final EntityManager em;
 
@@ -41,7 +42,7 @@ final public class LiquibaseMigration {
             Liquibase liquibase = null;
 
             database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            liquibase = new Liquibase("dbChangelog.xml", new ClassLoaderResourceAccessor(), database);
+            liquibase = new Liquibase(CHANGELOG_PATH, new ClassLoaderResourceAccessor(), database);
             liquibase.update("test");
             future.complete();
         } catch (LiquibaseException | SQLException e) {

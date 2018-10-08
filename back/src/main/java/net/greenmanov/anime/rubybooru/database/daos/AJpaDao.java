@@ -4,7 +4,6 @@ import net.greenmanov.anime.rubybooru.database.MainDatabase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

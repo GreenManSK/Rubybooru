@@ -5,7 +5,6 @@ import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import net.greenmanov.anime.rubybooru.Configuration;
-import net.greenmanov.anime.rubybooru.Runner;
 import net.greenmanov.anime.rubybooru.api.Router;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * Verticle for running API server
  */
 final public class ServerVerticle extends AbstractVerticle {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Runner.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServerVerticle.class.getName());
 
     @Override
     public void start(Future<Void> startFuture) {

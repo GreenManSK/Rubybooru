@@ -14,5 +14,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface RouteParam {
     String name();
+
     ParamType type() default ParamType.STRING;
 }

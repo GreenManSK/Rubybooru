@@ -4,7 +4,6 @@ import io.vertx.core.http.HttpServerOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -22,6 +21,7 @@ final public class Configuration {
 
     /**
      * Return server or null if config file do not exists
+     *
      * @return HttpServerOptions or null
      */
     public static HttpServerOptions getServerOptions() {

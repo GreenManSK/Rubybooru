@@ -42,7 +42,12 @@
             </plugin>
         </plugins>
     </build>
-
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -105,6 +110,11 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.GreenManSK</groupId>
+            <artifactId>Java-IqdbApi</artifactId>
+            <version>v1.2.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -8,6 +8,7 @@ public enum ParamType {
 
     /**
      * Converts parameter from string to specified object
+     *
      * @param value String value
      * @return Object of specified type
      * @throws ConvertException If
@@ -21,7 +22,7 @@ public enum ParamType {
                     return Integer.valueOf(value);
             }
         } catch (NumberFormatException e) {
-             throw new ConvertException("Problem with converting parameter", e);
+            throw new ConvertException("Problem with converting parameter", e);
         }
         return null;
     }

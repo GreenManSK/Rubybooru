@@ -1,8 +1,9 @@
 package net.greenmanov.anime.rubybooru;
 
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
-import net.greenmanov.anime.rubybooru.database.daos.ImageDao;
+import net.greenmanov.anime.rubybooru.database.DatabaseVerticle;
 import net.greenmanov.anime.rubybooru.server.ServerVerticle;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -21,6 +22,8 @@ final public class Runner {
 
     private Vertx vertx;
     private List<Verticle> verticles = new ArrayList<>();
+    @Inject
+    private DatabaseVerticle databaseVerticle;
 
     @Inject
     public Runner(Vertx vertx) {
@@ -44,10 +47,19 @@ final public class Runner {
     }
 
     private void deployVerticles() {
-        for (Verticle verticle: verticles) {
-            LOGGER.info("Deploying verticle " + verticle.getClass().getName());
-            vertx.deployVerticle(verticle);
-        }
+        LOGGER.info("Deploying database verticle");
+        DeploymentOptions options = new DeploymentOptions().setWorker(true);
+        vertx.deployVerticle(databaseVerticle, options, res -> {
+            if (res.succeeded()) {
+                for (Verticle verticle : verticles) {
+                    LOGGER.info("Deploying verticle " + verticle.getClass().getName());
+                    vertx.deployVerticle(verticle);
+                }
+            } else {
+                LOGGER.info("Closing application");
+                System.exit(1);
+            }
+        });
     }
 
     @Inject

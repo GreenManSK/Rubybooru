@@ -1,7 +1,10 @@
 package net.greenmanov.anime.rubybooru.database.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Image entity
@@ -9,20 +12,43 @@ import java.util.Date;
 @Entity
 @Table(name = "images")
 public class Image {
+    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "date")
     private Date date;
+
+    @Column(name = "width")
     private Integer width;
+
+    @Column(name = "height")
     private Integer height;
+
+    @Column(name = "source")
     private String source;
+
+    @Column(name = "infoSource")
     private String infoSource;
+
+    @ManyToMany(targetEntity = Tag.class)
+    @JoinTable(name = "image_tags",
+            joinColumns = @JoinColumn(name = "image_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dir_id", referencedColumnName = "id")
+    private Dir parent;
 
     public Image() {
     }
 
-    @Column(name = "id")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -31,7 +57,6 @@ public class Image {
         this.id = id;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -40,7 +65,6 @@ public class Image {
         this.name = name;
     }
 
-    @Column(name = "date")
     public Date getDate() {
         return date;
     }
@@ -49,7 +73,6 @@ public class Image {
         this.date = date;
     }
 
-    @Column(name = "width")
     public Integer getWidth() {
         return width;
     }
@@ -58,7 +81,6 @@ public class Image {
         this.width = width;
     }
 
-    @Column(name = "height")
     public Integer getHeight() {
         return height;
     }
@@ -67,7 +89,6 @@ public class Image {
         this.height = height;
     }
 
-    @Column(name = "source")
     public String getSource() {
         return source;
     }
@@ -76,12 +97,31 @@ public class Image {
         this.source = source;
     }
 
-    @Column(name = "infoSource")
     public String getInfoSource() {
         return infoSource;
     }
 
     public void setInfoSource(String infoSource) {
         this.infoSource = infoSource;
+    }
+
+    public List<Tag> getTags() {
+        return Collections.unmodifiableList(tags);
+    }
+
+    public void addTag(Tag tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(Tag tag) {
+        tags.remove(tag);
+    }
+
+    public Dir getParent() {
+        return parent;
+    }
+
+    void setParent(Dir parent) {
+        this.parent = parent;
     }
 }

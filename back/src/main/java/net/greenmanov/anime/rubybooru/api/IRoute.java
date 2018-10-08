@@ -9,6 +9,7 @@ import io.vertx.ext.web.RoutingContext;
 public interface IRoute {
     /**
      * Handle request
+     *
      * @param routingContext RoutingContext
      */
     void handel(RoutingContext routingContext);
