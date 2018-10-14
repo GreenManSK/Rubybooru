@@ -111,6 +111,10 @@ public class Image {
         return Collections.unmodifiableList(tags);
     }
 
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     public void addTag(Tag tag) {
         tags.add(tag);
     }

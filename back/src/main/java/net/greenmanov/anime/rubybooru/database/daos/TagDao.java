@@ -1,6 +1,10 @@
 package net.greenmanov.anime.rubybooru.database.daos;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import net.greenmanov.anime.rubybooru.database.entities.QTag;
 import net.greenmanov.anime.rubybooru.database.entities.Tag;
+
+import java.util.List;
 
 /**
  * DAO for Tag entity
@@ -8,6 +12,8 @@ import net.greenmanov.anime.rubybooru.database.entities.Tag;
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class TagDao extends AJpaDao {
+    private final static QTag TAG = QTag.tag;
+
     public TagDao() {
     }
 
@@ -22,12 +28,20 @@ public class TagDao extends AJpaDao {
     }
 
     /**
+     * Get all tags
+     * @return List of all tags
+     */
+    public List<Tag> getAll() {
+        return new JPAQuery<>(em).select(TAG).from(TAG).fetch();
+    }
+
+    /**
      * Saves image into database
      *
      * @param tag Tag entity
      */
-    public void save(Tag tag) {
-        em.persist(tag);
+    public void create(Tag tag) {
+        this.transaction((em) -> em.persist(tag));
     }
 
     /**
@@ -36,6 +50,6 @@ public class TagDao extends AJpaDao {
      * @param tag Tag entity
      */
     public void remove(Tag tag) {
-        em.remove(tag);
+        this.transaction((em) -> em.remove(tag));
     }
 }

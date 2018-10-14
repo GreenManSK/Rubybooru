@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rubybooru.vertx;
 
 import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 
 import javax.enterprise.inject.Produces;
 
@@ -13,6 +14,8 @@ public class VertxProducer {
 
     @Produces
     public Vertx createVertx() {
-        return Vertx.vertx();
+        VertxOptions options = new VertxOptions();
+        options.setMaxWorkerExecuteTime(Long.MAX_VALUE);
+        return Vertx.vertx(options);
     }
 }

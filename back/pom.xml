@@ -12,6 +12,7 @@
         <liquibase.version>3.6.2</liquibase.version>
         <vertx.logger-delegate-factory-class-name>io.vertx.core.logging.Log4j2LogDelegateFactory
         </vertx.logger-delegate-factory-class-name>
+        <querydsl.version>4.1.3</querydsl.version>
     </properties>
     <build>
         <plugins>
@@ -39,6 +40,29 @@
                 <configuration>
                     <propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.querydsl.apt.hibernate.HibernateAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>${querydsl.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -115,6 +139,21 @@
             <groupId>com.github.GreenManSK</groupId>
             <artifactId>Java-IqdbApi</artifactId>
             <version>v1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.GreenManSK</groupId>
+            <artifactId>AnimeImageSorter</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,8 +1,7 @@
 package net.greenmanov.anime.rubybooru.database.entities;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Directory entity
@@ -25,7 +24,11 @@ public class Dir {
     private Dir parent;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "parent")
-    private List<Image> images;
+    @MapKey(name = "name")
+    private Map<String, Image> images = new HashMap<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "parent")
+    private List<Dir> subDirs = new ArrayList<>();
 
     public Dir() {
     }
@@ -54,17 +57,39 @@ public class Dir {
         this.parent = parent;
     }
 
-    public List<Image> getImages() {
-        return Collections.unmodifiableList(images);
+    public Map<String, Image> getImages() {
+        return Collections.unmodifiableMap(images);
+    }
+
+    public List<Dir> getSubDirs() {
+        return Collections.unmodifiableList(subDirs);
+    }
+
+    public void addSubDir(Dir dir) {
+        subDirs.add(dir);
+        dir.setParent(this);
+    }
+
+    public void removeSubDir(Dir dir) {
+        subDirs.remove(dir);
+        dir.setParent(null);
     }
 
     public void addImage(Image image) {
         image.setParent(this);
-        images.add(image);
+        images.put(image.getName(), image);
+    }
+
+    public Image getImage(String name) {
+        return images.get(name);
+    }
+
+    public boolean hasImage(String name) {
+        return images.containsKey(name);
     }
 
     public void removeImage(Image image) {
         image.setParent(null);
-        images.remove(image);
+        images.remove(image.getName());
     }
 }

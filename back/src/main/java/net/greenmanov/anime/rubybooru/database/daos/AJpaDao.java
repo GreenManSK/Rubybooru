@@ -26,7 +26,7 @@ abstract public class AJpaDao {
      *
      * @param action Action
      */
-    protected void executeInsideTransaction(Consumer<EntityManager> action) {
+    public void transaction(Consumer<EntityManager> action) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();

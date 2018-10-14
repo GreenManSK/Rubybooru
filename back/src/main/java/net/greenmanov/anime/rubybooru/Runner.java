@@ -1,9 +1,8 @@
 package net.greenmanov.anime.rubybooru;
 
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Verticle;
-import io.vertx.core.Vertx;
+import io.vertx.core.*;
 import net.greenmanov.anime.rubybooru.database.DatabaseVerticle;
+import net.greenmanov.anime.rubybooru.parser.ParserVerticle;
 import net.greenmanov.anime.rubybooru.server.ServerVerticle;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
@@ -12,7 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Rubybooru runner
@@ -22,10 +23,20 @@ import java.util.List;
 final public class Runner {
     private static final Logger LOGGER = LoggerFactory.getLogger(Runner.class.getName());
 
+    static { //runs when the main class is loaded.
+        System.setProperty("org.jboss.logging.provider", "slf4j");
+    }
+
     private Vertx vertx;
-    private List<Verticle> verticles = new ArrayList<>();
+
     @Inject
     private DatabaseVerticle databaseVerticle;
+
+    @Inject
+    private ServerVerticle serverVerticle;
+
+    @Inject
+    private ParserVerticle parserVerticle;
 
     @Inject
     public Runner(Vertx vertx) {
@@ -33,7 +44,6 @@ final public class Runner {
     }
 
     public static void main(String[] args) {
-
         Weld weld = new Weld();
         WeldContainer container = weld.initialize();
         Runner runner = container.instance().select(Runner.class).get();
@@ -53,10 +63,18 @@ final public class Runner {
         DeploymentOptions options = new DeploymentOptions().setWorker(true);
         vertx.deployVerticle(databaseVerticle, options, res -> {
             if (res.succeeded()) {
-                for (Verticle verticle : verticles) {
+                List<Future> futures = new ArrayList<>();
+                for (Map.Entry<Verticle, DeploymentOptions> entry : getVerticles().entrySet()) {
+                    Verticle verticle = entry.getKey();
                     LOGGER.info("Deploying verticle " + verticle.getClass().getName());
-                    vertx.deployVerticle(verticle);
+                    Future future = Future.future();
+                    vertx.deployVerticle(verticle, entry.getValue(), res2 -> future.complete());
+                    futures.add(future);
                 }
+                CompositeFuture.all(futures).setHandler(res2 -> {
+                    LOGGER.info("Deploying Server verticle");
+                    vertx.deployVerticle(serverVerticle);
+                });
             } else {
                 LOGGER.info("Closing application");
                 System.exit(1);
@@ -64,8 +82,9 @@ final public class Runner {
         });
     }
 
-    @Inject
-    public void setServerVerticle(ServerVerticle verticle) {
-        verticles.add(verticle);
+    private Map<Verticle, DeploymentOptions> getVerticles() {
+        Map<Verticle, DeploymentOptions> subVericles = new HashMap<>();
+        subVericles.put(parserVerticle, new DeploymentOptions().setWorker(true));
+        return subVericles;
     }
 }

@@ -3,6 +3,7 @@ package net.greenmanov.anime.rubybooru.database.entities;
 import net.greenmanov.iqdb.parsers.TagType;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Tag entity
@@ -28,6 +29,11 @@ public class Tag {
     public Tag() {
     }
 
+    public Tag(String name, TagType type) {
+        this.name = name;
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }
@@ -50,5 +56,19 @@ public class Tag {
 
     public void setType(TagType type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tag)) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(name, tag.name) &&
+                type == tag.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, type);
     }
 }

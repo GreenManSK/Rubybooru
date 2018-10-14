@@ -27,8 +27,8 @@ public class ImageDao extends AJpaDao {
      *
      * @param image Image entity
      */
-    public void save(Image image) {
-        em.persist(image);
+    public void create(Image image) {
+        this.transaction((em) -> em.persist(image));
     }
 
     /**
@@ -37,6 +37,6 @@ public class ImageDao extends AJpaDao {
      * @param image Image entity
      */
     public void remove(Image image) {
-        em.remove(image);
+        this.transaction((em) -> em.remove(image));
     }
 }
