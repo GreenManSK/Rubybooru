@@ -6,7 +6,7 @@ package net.greenmanov.anime.rubybooru.server.api;
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public enum ParamType {
-    INT, STRING;
+    INT, STRING, BOOL;
 
     /**
      * Converts parameter from string to specified object
@@ -22,6 +22,8 @@ public enum ParamType {
                     return value;
                 case INT:
                     return Integer.valueOf(value);
+                case BOOL:
+                    return Boolean.valueOf(value);
             }
         } catch (NumberFormatException e) {
             throw new ConvertException("Problem with converting parameter", e);

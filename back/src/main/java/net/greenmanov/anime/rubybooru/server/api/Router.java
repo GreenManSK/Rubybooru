@@ -8,6 +8,9 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 
 /**
  * Used for finding all routes with RouteURL annotation to add them to the server router
@@ -17,6 +20,7 @@ import org.slf4j.LoggerFactory;
 final public class Router {
     private static final Logger LOGGER = LoggerFactory.getLogger(Router.class);
     private io.vertx.ext.web.Router router;
+    private Vertx vertx;
 
     /**
      * Creates new router
@@ -24,7 +28,7 @@ final public class Router {
      * @param vertx Vertx object
      */
     public Router(Vertx vertx) {
-
+        this.vertx = vertx;
         router = io.vertx.ext.web.Router.router(vertx);
         router.route().handler(BodyHandler.create());
     }
@@ -41,7 +45,12 @@ final public class Router {
                 continue;
             }
             try {
-                IRoute route = (IRoute) cl.newInstance();
+                IRoute route;
+                try {
+                    route = (IRoute) cl.getDeclaredConstructor(Vertx.class).newInstance(vertx);
+                } catch (NoSuchMethodException | InvocationTargetException e) {
+                    route = (IRoute) cl.newInstance();
+                }
                 addRoute(routeURL.url(), routeURL.method(), route);
             } catch (InstantiationException | IllegalAccessException e) {
                 LOGGER.error("Can't create instance of " + cl.getName() + " class", e);

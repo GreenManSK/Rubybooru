@@ -1,8 +1,10 @@
 package net.greenmanov.anime.rubybooru.server.api;
 
+import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import net.greenmanov.anime.rubybooru.server.api.annotation.RouteParam;
 import org.slf4j.Logger;
@@ -18,6 +20,8 @@ import java.util.Map;
  */
 abstract public class ARoute implements IRoute {
     private static final Logger LOGGER = LoggerFactory.getLogger(IRoute.class);
+
+    protected Vertx vertx;
 
     /**
      * Handle request
@@ -61,4 +65,28 @@ abstract public class ARoute implements IRoute {
             HttpServerResponse response,
             Buffer body,
             Map<String, Object> params);
+
+    /**
+     * Send json object as response with 200 code. If object do not have key code, it's added automatically
+     *
+     * @param response HttpServerResponse
+     * @param object   JsonObject
+     */
+    protected void respond(HttpServerResponse response, JsonObject object) {
+        respond(response, 200, object);
+    }
+
+    /**
+     * Send json object as response with provided code. If object do not have key code, it's added automatically
+     *
+     * @param response HttpServerResponse
+     * @param code     Response code
+     * @param object   JsonObject
+     */
+    protected void respond(HttpServerResponse response, int code, JsonObject object) {
+        response.setStatusCode(code);
+        if (object.getInteger("code") == null)
+            object.put("code", code);
+        response.end(object.toString());
+    }
 }
