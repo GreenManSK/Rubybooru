@@ -113,6 +113,14 @@ public class Image {
         this.infoSource = infoSource;
     }
 
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
+
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

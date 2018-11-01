@@ -3,8 +3,6 @@ package net.greenmanov.anime.rurybooru.persistance.dao;
 import com.querydsl.jpa.impl.JPAQuery;
 import net.greenmanov.anime.rurybooru.persistance.entity.QTag;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
