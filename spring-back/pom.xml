@@ -117,5 +117,6 @@
 
     <modules>
         <module>persistance</module>
+        <module>api</module>
     </modules>
 </project>
