@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -19,8 +21,8 @@ import java.util.List;
 public class TagDaoImpl implements TagDao {
     private final static QTag TAG = QTag.tag;
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     /**
      * Find tag by its id
@@ -30,7 +32,7 @@ public class TagDaoImpl implements TagDao {
      */
     @Override
     public Tag getById(long id) {
-        return sessionFactory.getCurrentSession().find(Tag.class, id);
+        return em.find(Tag.class, id);
     }
 
     /**
@@ -40,7 +42,7 @@ public class TagDaoImpl implements TagDao {
      */
     @Override
     public List<Tag> getAll() {
-        return new JPAQuery<>(sessionFactory.getCurrentSession()).select(TAG).from(TAG).fetch();
+        return new JPAQuery<>(em).select(TAG).from(TAG).fetch();
     }
 
     /**
@@ -52,7 +54,7 @@ public class TagDaoImpl implements TagDao {
      */
     @Override
     public void create(Tag tag) {
-        sessionFactory.getCurrentSession().persist(tag);
+        em.persist(tag);
     }
 
     /**
@@ -64,7 +66,7 @@ public class TagDaoImpl implements TagDao {
      */
     @Override
     public void update(Tag tag) {
-        sessionFactory.getCurrentSession().merge(tag);
+        em.merge(tag);
     }
 
     /**
@@ -75,6 +77,6 @@ public class TagDaoImpl implements TagDao {
      */
     @Override
     public void remove(Tag tag) {
-        sessionFactory.getCurrentSession().remove(tag);
+        em.remove(tag);
     }
 }

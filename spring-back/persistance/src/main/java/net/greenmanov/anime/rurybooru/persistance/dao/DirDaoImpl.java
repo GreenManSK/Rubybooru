@@ -3,10 +3,10 @@ package net.greenmanov.anime.rurybooru.persistance.dao;
 import com.querydsl.jpa.impl.JPAQuery;
 import net.greenmanov.anime.rurybooru.persistance.entity.Dir;
 import net.greenmanov.anime.rurybooru.persistance.entity.QDir;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -19,8 +19,8 @@ import java.util.List;
 public class DirDaoImpl implements DirDao {
     private final static QDir DIR = QDir.dir;
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     /**
      * Find dir by its id
@@ -30,7 +30,7 @@ public class DirDaoImpl implements DirDao {
      */
     @Override
     public Dir getById(long id) {
-        return sessionFactory.getCurrentSession().find(Dir.class, id);
+        return em.find(Dir.class, id);
     }
 
     /**
@@ -40,7 +40,7 @@ public class DirDaoImpl implements DirDao {
      */
     @Override
     public List<Dir> getAll() {
-        return new JPAQuery<>(sessionFactory.getCurrentSession()).select(DIR).from(DIR).fetch();
+        return new JPAQuery<>(em).select(DIR).from(DIR).fetch();
     }
 
     /**
@@ -52,7 +52,7 @@ public class DirDaoImpl implements DirDao {
      */
     @Override
     public void create(Dir dir) {
-        sessionFactory.getCurrentSession().persist(dir);
+        em.persist(dir);
     }
 
     /**
@@ -64,7 +64,7 @@ public class DirDaoImpl implements DirDao {
      */
     @Override
     public void update(Dir dir) {
-        sessionFactory.getCurrentSession().merge(dir);
+        em.merge(dir);
     }
 
     /**
@@ -75,6 +75,6 @@ public class DirDaoImpl implements DirDao {
      */
     @Override
     public void remove(Dir dir) {
-        sessionFactory.getCurrentSession().remove(dir);
+        em.remove(dir);
     }
 }

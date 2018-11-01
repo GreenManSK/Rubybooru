@@ -4,10 +4,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -20,8 +20,8 @@ import java.util.List;
 public class ImageDaoImpl implements ImageDao {
     private final static QImage IMAGE = QImage.image;
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     /**
      * Find image by its id
@@ -31,7 +31,7 @@ public class ImageDaoImpl implements ImageDao {
      */
     @Override
     public Image getById(long id) {
-        return sessionFactory.getCurrentSession().find(Image.class, id);
+        return em.find(Image.class, id);
     }
 
     /**
@@ -41,7 +41,7 @@ public class ImageDaoImpl implements ImageDao {
      */
     @Override
     public List<Image> getAll() {
-        return new JPAQuery<>(sessionFactory.getCurrentSession()).select(IMAGE).from(IMAGE).fetch();
+        return new JPAQuery<>(em).select(IMAGE).from(IMAGE).fetch();
     }
 
     /**
@@ -53,7 +53,7 @@ public class ImageDaoImpl implements ImageDao {
      */
     @Override
     public List<Image> getByTag(Tag tag) {
-        return new JPAQuery<>(sessionFactory.getCurrentSession())
+        return new JPAQuery<>(em)
                 .select(IMAGE)
                 .from(IMAGE)
                 .where(IMAGE.tags.contains(tag))
@@ -69,7 +69,7 @@ public class ImageDaoImpl implements ImageDao {
      */
     @Override
     public void create(Image image) {
-        sessionFactory.getCurrentSession().persist(image);
+        em.persist(image);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ImageDaoImpl implements ImageDao {
      */
     @Override
     public void update(Image image) {
-        sessionFactory.getCurrentSession().merge(image);
+        em.merge(image);
     }
 
     /**
@@ -92,6 +92,6 @@ public class ImageDaoImpl implements ImageDao {
      */
     @Override
     public void remove(Image image) {
-        sessionFactory.getCurrentSession().remove(image);
+        em.remove(image);
     }
 }
