@@ -1,7 +1,6 @@
 package net.greenmanov.anime.rurybooru.persistance.entity;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import javax.persistence.*;
 import java.util.*;
@@ -78,23 +77,19 @@ public class Dir {
         image.setParent(null);
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Dir that = (Dir) o;
-
-        return Objects.equal(this.name, that.name) &&
-                Objects.equal(this.parent, that.parent);
+        if (!(o instanceof Dir)) return false;
+        Dir dir = (Dir) o;
+        return Objects.equals(getName(), dir.getName()) &&
+                Objects.equals(getParent(), dir.getParent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, parent);
+        return Objects.hash(getName(), getParent());
     }
-
 
     @Override
     public String toString() {

@@ -1,7 +1,6 @@
 package net.greenmanov.anime.rurybooru.persistance.entity;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -9,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Image entity
@@ -124,17 +124,15 @@ public class Image {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Image that = (Image) o;
-
-        return Objects.equal(this.name, that.name) &&
-                Objects.equal(this.parent, that.parent);
+        if (!(o instanceof Image)) return false;
+        Image image = (Image) o;
+        return Objects.equals(getName(), image.getName()) &&
+                Objects.equals(getParent(), image.getParent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, parent);
+        return Objects.hash(getName(), getParent());
     }
 
     @Override
