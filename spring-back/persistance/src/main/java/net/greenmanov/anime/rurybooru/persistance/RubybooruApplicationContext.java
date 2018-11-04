@@ -30,7 +30,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
-@PropertySource("classpath:configuration.example.properties")
+@PropertySource("classpath:configuration.properties")
 @ComponentScan(basePackageClasses = {DaoPackage.class})
 public class RubybooruApplicationContext {
 
