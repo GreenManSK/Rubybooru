@@ -121,6 +121,11 @@
                         </dependency>
                     </dependencies>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -129,5 +134,6 @@
         <module>persistance</module>
         <module>api</module>
         <module>service</module>
+        <module>sync</module>
     </modules>
 </project>
