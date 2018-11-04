@@ -1,16 +1,15 @@
-package net.greenmanov.anime.rurybooru.persistance.dao;
+package net.greenmanov.anime.rurybooru.service;
 
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
- * Interface TagDao
+ * Interface TagService
  *
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
-public interface TagDao {
+public interface TagService {
     /**
      * Find tag by its id
      *
@@ -38,8 +37,6 @@ public interface TagDao {
      * Stores new tag
      *
      * @param tag to be created
-     * @throws NullPointerException         if the {@code tag} is {@code null}
-     * @throws ConstraintViolationException if the {@code tag} has required field set as {@code null}
      */
     void create(Tag tag);
 
@@ -47,8 +44,6 @@ public interface TagDao {
      * Updates existing tag according to the id
      *
      * @param tag to be updated
-     * @throws NullPointerException         if the {@code tag} is {@code null}
-     * @throws ConstraintViolationException if the {@code tag} has required field set as {@code null}
      */
     void update(Tag tag);
 
@@ -56,7 +51,6 @@ public interface TagDao {
      * Removes the tag
      *
      * @param tag to be deleted
-     * @throws NullPointerException if the {@code tag} is {@code null}
      */
     void remove(Tag tag);
 }

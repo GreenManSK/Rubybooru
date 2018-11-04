@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rurybooru.persistance.dao;
 
 import com.querydsl.jpa.impl.JPAQuery;
+import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
 import net.greenmanov.anime.rurybooru.persistance.entity.QTag;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,7 @@ import java.util.List;
 @Repository
 public class TagDaoImpl implements TagDao {
     private final static QTag TAG = QTag.tag;
+    private final static QImage IMAGE = QImage.image;
 
     @PersistenceContext
     private EntityManager em;
@@ -41,6 +43,17 @@ public class TagDaoImpl implements TagDao {
     @Override
     public List<Tag> getAll() {
         return new JPAQuery<>(em).select(TAG).from(TAG).fetch();
+    }
+
+    /**
+     * Return number of images that have provided tag
+     *
+     * @param tag Tag entity
+     * @return number of images with tag
+     */
+    @Override
+    public long getTagUseCount(Tag tag) {
+        return new JPAQuery<>(em).from(IMAGE).where(IMAGE.tags.contains(tag)).fetchCount();
     }
 
     /**

@@ -113,6 +113,10 @@ public class Image {
         this.infoSource = infoSource;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
     public void addTag(Tag tag) {
         this.tags.add(tag);
     }

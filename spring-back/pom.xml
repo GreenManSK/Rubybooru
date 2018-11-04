@@ -73,6 +73,16 @@
                 <artifactId>Java-IqdbApi</artifactId>
                 <version>v1.2.0</version>
             </dependency>
+            <dependency>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer</artifactId>
+                <version>5.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -118,5 +128,6 @@
     <modules>
         <module>persistance</module>
         <module>api</module>
+        <module>service</module>
     </modules>
 </project>

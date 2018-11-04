@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rurybooru.persistance.dao;
 
 import net.greenmanov.anime.rurybooru.persistance.RurybooruTestApplicationContext;
+import net.greenmanov.anime.rurybooru.persistance.entity.Dir;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
 import net.greenmanov.iqdb.parsers.TagType;
@@ -10,16 +11,15 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import java.util.Date;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 /**
  * Class TagDaoImplTest
@@ -37,6 +37,14 @@ public class TagDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @PersistenceContext
     private EntityManager em;
+
+    private Dir dir;
+
+    @BeforeMethod
+    public void setUp() {
+        dir = createDir();
+        em.persist(dir);
+    }
 
     @Test
     public void testGetById() {
@@ -93,6 +101,51 @@ public class TagDaoImplTest extends AbstractTestNGSpringContextTests {
 
         tagDao.remove(tag);
         assertNull(em.find(Tag.class, tag.getId()));
+    }
+
+    @Test
+    public void testGetTagUseCount() {
+        Tag tag1 = createTag();
+        Tag tag2 = createTag();
+        tag2.setName("Test2");
+        em.persist(tag1);
+        em.persist(tag2);
+
+        Image img1 = createImage();
+        Image img2 = createImage();
+        Image img3 = createImage();
+        img2.setName("Image 2");
+        img3.setName("Image 3");
+
+        img1.addTag(tag1);
+        img2.addTag(tag1);
+        img2.addTag(tag2);
+        img3.addTag(tag2);
+        em.persist(img1);
+        em.persist(img2);
+        em.persist(img3);
+
+        assertEquals(2, tagDao.getTagUseCount(tag1));
+    }
+
+    private Image createImage() {
+        Image img = new Image();
+
+        img.setName("Img Name");
+        img.setDate(new Date());
+        img.setWidth(500);
+        img.setHeight(600);
+        img.setSource("http://link.com");
+
+        img.setParent(dir);
+
+        return img;
+    }
+
+    private Dir createDir() {
+        Dir dir = new Dir();
+        dir.setName("Test Dir");
+        return dir;
     }
 
     private Tag createTag() {

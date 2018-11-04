@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 import net.greenmanov.anime.rurybooru.api.enums.Order;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,26 +14,36 @@ import java.util.Objects;
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public class GetImagesDTO {
-    private List<TagDTO> tags;
-    private DirDTO dir;
+    private List<Long> tags;
+    private Long dir;
 
     private Order order;
 
     @Min(1)
+    @NotNull
     private Integer prePage;
 
     @Min(1)
+    @NotNull
     private Integer page;
 
     public GetImagesDTO() {
     }
 
-    public List<TagDTO> getTags() {
+    public List<Long> getTags() {
         return tags;
     }
 
-    public void setTags(List<TagDTO> tags) {
+    public void setTags(List<Long> tags) {
         this.tags = tags;
+    }
+
+    public Long getDir() {
+        return dir;
+    }
+
+    public void setDir(Long dir) {
+        this.dir = dir;
     }
 
     public Order getOrder() {
