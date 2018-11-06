@@ -5,10 +5,7 @@ import com.google.common.base.MoreObjects;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Image entity
@@ -35,12 +32,14 @@ public class Image {
     @Min(0)
     private Integer height = 0;
 
+    @Column(length = 500)
     private String source;
 
+    @Column(length = 500)
     private String infoSource;
 
     @ManyToMany
-    private List<Tag> tags = new ArrayList<>();
+    private Set<Tag> tags = new HashSet<>();
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -113,7 +112,7 @@ public class Image {
         this.infoSource = infoSource;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 

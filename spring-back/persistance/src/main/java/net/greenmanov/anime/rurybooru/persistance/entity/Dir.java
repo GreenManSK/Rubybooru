@@ -28,7 +28,8 @@ public class Dir {
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "parent")
-    private List<Dir> subDirs = new ArrayList<>();
+    @MapKey(name = "name")
+    private  Map<String, Dir> subDirs = new HashMap<>();
 
     public Dir() {
     }
@@ -57,14 +58,22 @@ public class Dir {
         this.parent = parent;
     }
 
+    public Map<String, Dir> getSubDirs() {
+        return subDirs;
+    }
+
     public void addSubDir(Dir dir) {
-        subDirs.add(dir);
+        subDirs.put(dir.getName(), dir);
         dir.setParent(this);
     }
 
     public void removeSubDir(Dir dir) {
-        subDirs.remove(dir);
+        subDirs.remove(dir.getName());
         dir.setParent(null);
+    }
+
+    public Map<String, Image> getImages() {
+        return images;
     }
 
     public void addImage(Image image) {

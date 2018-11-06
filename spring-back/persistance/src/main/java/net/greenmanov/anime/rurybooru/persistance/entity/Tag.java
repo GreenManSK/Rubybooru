@@ -28,6 +28,11 @@ public class Tag {
     public Tag() {
     }
 
+    public Tag(String name, TagType type) {
+        this.name = name;
+        this.type = type;
+    }
+
     public Long getId() {
         return id;
     }

@@ -30,4 +30,18 @@ public interface ImageService {
      * @return List of images
      */
     List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page);
+
+    /**
+     * Stores new image
+     *
+     * @param image to be created
+     */
+    void create(Image image);
+
+    /**
+     * Removes the image
+     *
+     * @param image to be deleted
+     */
+    void remove(Image image);
 }

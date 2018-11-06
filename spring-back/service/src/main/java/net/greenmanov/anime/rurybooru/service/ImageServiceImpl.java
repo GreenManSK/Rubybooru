@@ -44,4 +44,24 @@ public class ImageServiceImpl implements ImageService {
     public List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page) {
         return imageDao.getImages(tagIds, dirId, order == Order.DESC, perPage, page);
     }
+
+    /**
+     * Stores new image
+     *
+     * @param image to be created
+     */
+    @Override
+    public void create(Image image) {
+        imageDao.create(image);
+    }
+
+    /**
+     * Removes the image
+     *
+     * @param image to be deleted
+     */
+    @Override
+    public void remove(Image image) {
+        imageDao.remove(image);
+    }
 }
