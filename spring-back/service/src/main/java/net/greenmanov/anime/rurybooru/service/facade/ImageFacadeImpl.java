@@ -45,7 +45,7 @@ public class ImageFacadeImpl implements ImageFacade {
      */
     @Override
     public List<ImageDTO> getImages(GetImagesDTO dto) {
-        return mapper.mapTo(imageService.getImages(dto.getTags(), dto.getDir(), dto.getOrder(), dto.getPrePage(),
+        return mapper.mapTo(imageService.getImages(dto.getTags(), dto.getDir(), dto.getOrder(), dto.getPerPage(),
                 dto.getPage()), ImageDTO.class);
     }
 }

@@ -105,8 +105,8 @@ public class Dir {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("name", name)
-                .add("parent", parent)
-                .add("images", images)
+                .add("parent", parent.getId())
+                .add("images", images.keySet())
                 .add("subDirs", subDirs)
                 .toString();
     }

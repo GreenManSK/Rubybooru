@@ -145,5 +145,6 @@
         <module>api</module>
         <module>service</module>
         <module>sync</module>
+        <module>rest</module>
     </modules>
 </project>

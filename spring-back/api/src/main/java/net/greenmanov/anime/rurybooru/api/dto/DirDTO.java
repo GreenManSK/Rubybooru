@@ -2,6 +2,7 @@ package net.greenmanov.anime.rurybooru.api.dto;
 
 import com.google.common.base.MoreObjects;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -14,9 +15,8 @@ import java.util.Objects;
 public class DirDTO {
     private Long id;
     private String name;
-    private DirDTO parent;
-    private Map<String, ImageDTO> images;
-    private List<DirDTO> subDirs;
+    private Long parentId;
+    private Map<String, DirDTO> subDirs = new HashMap<>();
 
     public DirDTO() {
     }
@@ -37,27 +37,19 @@ public class DirDTO {
         this.name = name;
     }
 
-    public DirDTO getParent() {
-        return parent;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParent(DirDTO parent) {
-        this.parent = parent;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
-    public Map<String, ImageDTO> getImages() {
-        return images;
-    }
-
-    public void setImages(Map<String, ImageDTO> images) {
-        this.images = images;
-    }
-
-    public List<DirDTO> getSubDirs() {
+    public Map<String, DirDTO> getSubDirs() {
         return subDirs;
     }
 
-    public void setSubDirs(List<DirDTO> subDirs) {
+    public void setSubDirs(Map<String, DirDTO> subDirs) {
         this.subDirs = subDirs;
     }
 
@@ -67,12 +59,12 @@ public class DirDTO {
         if (!(o instanceof DirDTO)) return false;
         DirDTO dirDTO = (DirDTO) o;
         return Objects.equals(getName(), dirDTO.getName()) &&
-                Objects.equals(getParent(), dirDTO.getParent());
+                Objects.equals(getParentId(), dirDTO.getParentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getParent());
+        return Objects.hash(getName(), getParentId());
     }
 
     @Override
@@ -80,8 +72,7 @@ public class DirDTO {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("name", name)
-                .add("parent", parent)
-                .add("images", images)
+                .add("parent", parentId)
                 .add("subDirs", subDirs)
                 .toString();
     }

@@ -7,7 +7,7 @@ import net.greenmanov.anime.rurybooru.api.dto.DirDTO;
  *
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
-public interface DirFacade {
+public interface  DirFacade {
     /**
      * Retrieve dir by id
      *

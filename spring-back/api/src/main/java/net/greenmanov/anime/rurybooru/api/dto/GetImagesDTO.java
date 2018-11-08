@@ -21,7 +21,7 @@ public class GetImagesDTO {
 
     @Min(1)
     @NotNull
-    private Integer prePage;
+    private Integer perPage;
 
     @Min(1)
     @NotNull
@@ -54,12 +54,12 @@ public class GetImagesDTO {
         this.order = order;
     }
 
-    public Integer getPrePage() {
-        return prePage;
+    public Integer getPerPage() {
+        return perPage;
     }
 
-    public void setPrePage(Integer prePage) {
-        this.prePage = prePage;
+    public void setPerPage(Integer perPage) {
+        this.perPage = perPage;
     }
 
     public Integer getPage() {
@@ -78,13 +78,13 @@ public class GetImagesDTO {
         return Objects.equals(getTags(), that.getTags()) &&
                 Objects.equals(dir, that.dir) &&
                 getOrder() == that.getOrder() &&
-                Objects.equals(getPrePage(), that.getPrePage()) &&
+                Objects.equals(getPerPage(), that.getPerPage()) &&
                 Objects.equals(getPage(), that.getPage());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTags(), dir, getOrder(), getPrePage(), getPage());
+        return Objects.hash(getTags(), dir, getOrder(), getPerPage(), getPage());
     }
 
 
@@ -94,7 +94,7 @@ public class GetImagesDTO {
                 .add("tags", tags)
                 .add("dir", dir)
                 .add("order", order)
-                .add("prePage", prePage)
+                .add("perPage", perPage)
                 .add("page", page)
                 .toString();
     }
