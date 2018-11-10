@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 /**
@@ -56,11 +58,12 @@ public class ImageController {
     public final List<ImageDTO> getImages(
             @RequestParam(required = false) List<Long> tags,
             @RequestParam(required = false) Long dirId,
-            Integer perPage,
-            Integer page) {
+            @RequestParam(required = false) Order order,
+            @Max(128) @Min(1) Integer perPage,
+            @Min(1) Integer page) {
         GetImagesDTO dto = new GetImagesDTO();
         dto.setDir(dirId);
-        dto.setOrder(Order.DESC);
+        dto.setOrder(order == null ? Order.NEWEST : order);
         dto.setPage(page);
         dto.setPerPage(perPage);
         dto.setTags(tags);

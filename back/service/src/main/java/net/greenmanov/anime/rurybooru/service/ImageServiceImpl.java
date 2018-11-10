@@ -1,8 +1,10 @@
 package net.greenmanov.anime.rurybooru.service;
 
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import net.greenmanov.anime.rurybooru.api.enums.Order;
 import net.greenmanov.anime.rurybooru.persistance.dao.ImageDao;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
+import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.List;
  */
 @Service
 public class ImageServiceImpl implements ImageService {
+    private final static QImage IMAGE = QImage.image;
 
     @Autowired
     private ImageDao imageDao;
@@ -42,7 +45,21 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page) {
-        return imageDao.getImages(tagIds, dirId, order == Order.DESC, perPage, page);
+        return imageDao.getImages(tagIds, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
+    }
+
+    private ComparableExpressionBase getSortColumn(Order order) {
+        switch (order) {
+            case WIDTH:
+                return IMAGE.width;
+            case HEIGHT:
+                return IMAGE.height;
+            case NEWEST:
+            case OLDEST:
+                return IMAGE.date;
+            default:
+                return null;
+        }
     }
 
     /**

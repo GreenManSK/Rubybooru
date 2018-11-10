@@ -3,6 +3,7 @@ package net.greenmanov.anime.rurybooru.persistance.dao;
 import net.greenmanov.anime.rurybooru.persistance.RurybooruTestApplicationContext;
 import net.greenmanov.anime.rurybooru.persistance.entity.Dir;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
+import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
 import net.greenmanov.iqdb.parsers.TagType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import static org.testng.Assert.*;
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class ImageDaoImplTest extends AbstractTestNGSpringContextTests {
+    private final static QImage IMAGE = QImage.image;
 
     @Autowired
     private ImageDao imageDao;
@@ -94,24 +96,24 @@ public class ImageDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetImagesPagination() {
-        List<Image> images = imageDao.getImages(null, null, false, 1, 2);
+        List<Image> images = imageDao.getImages(null, null, IMAGE.date, false, 1, 2);
         assertEquals(1, images.size());
         assertTrue(images.contains(img2));
 
-        images = imageDao.getImages(null, null, false, 2, 1);
+        images = imageDao.getImages(null, null, IMAGE.date, false, 2, 1);
         assertEquals(2, images.size());
         assertTrue(images.contains(img1));
         assertTrue(images.contains(img2));
 
-        images = imageDao.getImages(null, null, false, 2, 2);
+        images = imageDao.getImages(null, null, IMAGE.date, false, 2, 2);
         assertEquals(1, images.size());
         assertTrue(images.contains(img3));
     }
 
     @Test
     public void testGetImagesOrder() {
-        List<Image> asc = imageDao.getImages(null, null, false, 20, 1);
-        List<Image> desc = imageDao.getImages(null, null, true, 20, 1);
+        List<Image> asc = imageDao.getImages(null, null, IMAGE.date, false, 20, 1);
+        List<Image> desc = imageDao.getImages(null, null, IMAGE.date, true, 20, 1);
         assertEquals(3, asc.size());
         assertEquals(3, desc.size());
 
@@ -120,27 +122,27 @@ public class ImageDaoImplTest extends AbstractTestNGSpringContextTests {
         }
 
 
-        desc = imageDao.getImages(null, null, true, 1, 3);
+        desc = imageDao.getImages(null, null, IMAGE.date, true, 1, 3);
         assertEquals(1, desc.size());
         assertTrue(desc.contains(img1));
     }
 
     @Test
     public void testGetImagesFilters() {
-        List<Image> images = imageDao.getImages(null, dir.getId() + 1, false, 20, 1);
+        List<Image> images = imageDao.getImages(null, dir.getId() + 1, IMAGE.date, false, 20, 1);
         assertTrue(images.isEmpty());
 
-        images = imageDao.getImages(null, dir.getId(), false, 20, 1);
+        images = imageDao.getImages(null, dir.getId(), IMAGE.date, false, 20, 1);
         assertEquals(3, images.size());
         assertTrue(images.contains(img1));
         assertTrue(images.contains(img2));
         assertTrue(images.contains(img3));
 
-        images = imageDao.getImages(Arrays.asList(tag1.getId(), tag2.getId()), null, false, 20, 1);
+        images = imageDao.getImages(Arrays.asList(tag1.getId(), tag2.getId()), null, IMAGE.date, false, 20, 1);
         assertEquals(1, images.size());
         assertTrue(images.contains(img2));
 
-        images = imageDao.getImages(Arrays.asList(tag1.getId()), null, false, 20, 1);
+        images = imageDao.getImages(Arrays.asList(tag1.getId()), null, IMAGE.date, false, 20, 1);
         assertEquals(2, images.size());
         assertTrue(images.contains(img1));
         assertTrue(images.contains(img2));

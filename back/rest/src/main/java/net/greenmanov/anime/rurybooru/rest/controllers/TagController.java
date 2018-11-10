@@ -1,6 +1,8 @@
 package net.greenmanov.anime.rurybooru.rest.controllers;
 
+import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagInfoDTO;
+import net.greenmanov.anime.rurybooru.api.enums.Order;
 import net.greenmanov.anime.rurybooru.api.facade.TagFacade;
 import net.greenmanov.anime.rurybooru.rest.ApiUris;
 import net.greenmanov.anime.rurybooru.rest.exceptions.ResourceNotFoundException;
@@ -8,10 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Class TagController
@@ -28,6 +29,7 @@ public class TagController {
 
     /**
      * Get tag info
+     *
      * @param id id of the tag
      * @return TagInfoDTO
      */
@@ -39,5 +41,29 @@ public class TagController {
             throw new ResourceNotFoundException();
         }
         return tagInfoDTO;
+    }
+
+    /**
+     * Return top tags for image search
+     *
+     * @param tags   Tag ids or {@code null}
+     * @param dirId  Dir id or {@code null}
+     * @param order  Order of images
+     * @param number Number of  tags
+     * @return List of TagInfoDTO
+     */
+    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<TagInfoDTO> getTags(
+            @RequestParam(required = false) List<Long> tags,
+            @RequestParam(required = false) Long dirId,
+            @RequestParam(required = false) Order order,
+            Integer number
+    ) {
+        GetImagesDTO dto = new GetImagesDTO();
+        dto.setDir(dirId);
+        dto.setOrder(order == null ? Order.NEWEST : order);
+        dto.setTags(tags);
+        logger.debug("getTagInfoForGetImage({}, {})", dto, number);
+        return tagFacade.getTagInfoForGetImage(dto, number);
     }
 }

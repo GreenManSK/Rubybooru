@@ -1,5 +1,6 @@
 package net.greenmanov.anime.rurybooru.persistance.dao;
 
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
@@ -49,13 +50,15 @@ public class ImageDaoImpl implements ImageDao {
      *
      * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed
      * @param dirId   ID of the dir that contains images or {@code null} if any dir is ok
+     * @param sortColumn Specify column to sort by
      * @param desc    Specify ordering of images for pagination, images are ordered by datetime added
      * @param perPage Number of images per page - maximal number of images in list
      * @param page    Number of page that should be returned (skips first {@code (page - 1) * perPage} images)
      * @return List of images
      */
     @Override
-    public List<Image> getImages(List<Long> tagIds, Long dirId, boolean desc, Integer perPage, Integer page) {
+    public List<Image> getImages(List<Long> tagIds, Long dirId, ComparableExpressionBase sortColumn, boolean desc, Integer perPage,
+                                 Integer page) {
         JPAQuery<Image> query = new JPAQuery<>(em).select(IMAGE).from(IMAGE);
 
         if (tagIds != null) {
@@ -76,7 +79,9 @@ public class ImageDaoImpl implements ImageDao {
             query.offset((page - 1) * perPage);
         }
 
-        query.orderBy(desc ? IMAGE.date.desc() : IMAGE.date.asc());
+        if (sortColumn != null) {
+            query.orderBy(desc ? sortColumn.desc() : sortColumn.asc());
+        }
 
         return query.fetch();
     }

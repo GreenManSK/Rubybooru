@@ -6,5 +6,5 @@ package net.greenmanov.anime.rurybooru.api.enums;
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 public enum Order {
-    ASC, DESC
+    NEWEST, OLDEST, WIDTH, HEIGHT, NONE
 }
