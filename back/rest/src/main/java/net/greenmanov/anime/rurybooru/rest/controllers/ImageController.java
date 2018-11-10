@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -43,6 +44,21 @@ public class ImageController {
             throw new ResourceNotFoundException();
         }
         return imageDTO;
+    }
+
+    /**
+     * Reditect to file with image resized to provided width and height. Aspect ration of image is not changed,
+     * bigger side is fit to provided width or height
+     * @param width Width in pixels
+     * @param height Height in pixels
+     * @return RedirectView
+     */
+    @RequestMapping(value = "/tmp/{id}", method = RequestMethod.GET)
+    public final RedirectView getTmpImage(@Min(100) Integer width, @Min(100) Integer height) {
+        String imageName = ""; // TODO
+        RedirectView redirect = new RedirectView();
+        redirect.setUrl("../../tmp/" + imageName);
+        return redirect;
     }
 
     /**

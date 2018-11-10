@@ -2,6 +2,7 @@ package net.greenmanov.anime.rubybooru.sync;
 
 import net.greenmanov.anime.rubybooru.sync.configuration.SyncConfiguration;
 import net.greenmanov.anime.rubybooru.sync.parser.DirectoryParser;
+import net.greenmanov.anime.rurybooru.persistance.RubybooruConfig;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +20,12 @@ import java.nio.file.Paths;
  *
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
-@PropertySource("classpath:configuration.properties")
 @Component
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class.getName());
 
     @Autowired
-    private Environment env;
+    private RubybooruConfig config;
 
     @Autowired
     private DirectoryParser directoryParser;
@@ -43,12 +43,12 @@ public class Main {
         CommandLine cmd = parser.parse(getOptions(), args);
 
         boolean dataUpdate = cmd.hasOption("d");
-        String pathProperty = env.getProperty("sync.galleryPath");
+        String pathProperty = config.getGalleryPath();
         if (pathProperty == null) {
             LOGGER.error("sync.galleryPath property missing in configuration");
             return;
         }
-        directoryParser.parseDir(Paths.get(env.getProperty("sync.galleryPath")), true, dataUpdate);
+        directoryParser.parseDir(Paths.get(pathProperty), true, dataUpdate);
     }
 
     private Options getOptions() {

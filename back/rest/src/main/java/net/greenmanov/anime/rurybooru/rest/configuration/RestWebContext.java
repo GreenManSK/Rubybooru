@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import net.greenmanov.anime.rurybooru.persistance.RubybooruConfig;
 import net.greenmanov.anime.rurybooru.rest.controllers.ControllersPackage;
 import net.greenmanov.anime.rurybooru.service.configuration.ServiceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 
+import javax.naming.ldap.PagedResultsControl;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -25,14 +27,12 @@ import java.util.Locale;
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class})
-@PropertySource("classpath:configuration.properties")
 @ComponentScan(basePackageClasses = {ControllersPackage.class})
 public class RestWebContext implements WebMvcConfigurer {
+    private final static Integer DEFAULT_CACHE_PERIOD = 60 * 60 * 24 * 365; //Seconds
 
     @Autowired
-    private Environment env;
-
-    private final static Integer DEFAULT_CACHE_PERIOD = 60 * 60 * 24 * 365; //Seconds
+    private RubybooruConfig config;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -68,7 +68,7 @@ public class RestWebContext implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/tmp/**")
-                .addResourceLocations(env.getProperty("server.imgTmpPath"))
+                .addResourceLocations(config.getServerTmpPath())
                 .setCachePeriod(DEFAULT_CACHE_PERIOD);
     }
 }
