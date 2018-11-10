@@ -1,14 +1,8 @@
 package net.greenmanov.anime.rubybooru.sync;
 
-import net.greenmanov.anime.ImageSorter.json.JsonDatabase;
 import net.greenmanov.anime.rubybooru.sync.configuration.SyncConfiguration;
 import net.greenmanov.anime.rubybooru.sync.parser.DirectoryParser;
-import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
-import net.greenmanov.anime.rurybooru.service.TagService;
-import net.greenmanov.iqdb.parsers.TagType;
 import org.apache.commons.cli.*;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 /**
  * Main class for sync module
