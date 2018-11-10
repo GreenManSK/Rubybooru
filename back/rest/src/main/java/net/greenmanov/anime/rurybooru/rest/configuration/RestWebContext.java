@@ -6,13 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import net.greenmanov.anime.rurybooru.rest.controllers.ControllersPackage;
 import net.greenmanov.anime.rurybooru.service.configuration.ServiceConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,8 +25,15 @@ import java.util.Locale;
 @EnableWebMvc
 @Configuration
 @Import({ServiceConfiguration.class})
+@PropertySource("classpath:configuration.properties")
 @ComponentScan(basePackageClasses = {ControllersPackage.class})
 public class RestWebContext implements WebMvcConfigurer {
+
+    @Autowired
+    private Environment env;
+
+    private final static Integer DEFAULT_CACHE_PERIOD = 60 * 60 * 24 * 365; //Seconds
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AllowOriginInterceptor());
@@ -47,9 +53,6 @@ public class RestWebContext implements WebMvcConfigurer {
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH));
 
-//        objectMapper.addMixIn(ProductDTO.class, ProductDTOMixin.class);
-//        objectMapper.addMixIn(UserDTO.class,    UserDTOMixin.class);
-
         objectMapper.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
 
         jsonConverter.setObjectMapper(objectMapper);
@@ -59,5 +62,13 @@ public class RestWebContext implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(customJackson2HttpMessageConverter());
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/tmp/**")
+                .addResourceLocations(env.getProperty("server.imgTmpPath"))
+                .setCachePeriod(DEFAULT_CACHE_PERIOD);
     }
 }
