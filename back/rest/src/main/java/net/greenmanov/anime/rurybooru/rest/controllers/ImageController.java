@@ -17,6 +17,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
 
+import static net.greenmanov.anime.rurybooru.rest.ApiUris.STATIC_GALLERY_URI;
+import static net.greenmanov.anime.rurybooru.rest.ApiUris.STATIC_TMP_URI;
+
 /**
  * Class ImageController
  *
@@ -63,8 +66,34 @@ public class ImageController {
         logger.debug("getTmpImage({}, {}, {})", id, width, height);
         String imageName = imageFacade.getTmpImage(id, width, height);
         RedirectView redirect = new RedirectView();
-        redirect.setUrl("../../tmp/" + imageName);
+        redirect.setUrl("../.." + STATIC_TMP_URI + "/" + imageName);
         return redirect;
+    }
+
+    /**
+     * Redirect to image file
+     *
+     * @param id Id of image
+     * @return RedirectView
+     */
+    @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
+    public final RedirectView getImageFile(@PathVariable("id") long id) {
+        logger.debug("getImagePath({})", id);
+        String imagePath = imageFacade.getPath(id);
+        RedirectView redirect = new RedirectView();
+        redirect.setUrl("../.." + STATIC_GALLERY_URI + "/" + imagePath);
+        return redirect;
+    }
+
+    /**
+     * Opens image in windows file explorer
+     *
+     * @param id image id
+     */
+    @RequestMapping(value = "/open/{id}", method = RequestMethod.GET)
+    public final void openImage(@PathVariable("id") long id) {
+        logger.debug("open({})", id);
+        imageFacade.open(id);
     }
 
     /**

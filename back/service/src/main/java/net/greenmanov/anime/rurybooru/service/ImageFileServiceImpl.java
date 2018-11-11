@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import javax.naming.ldap.PagedResultsControl;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,8 +23,8 @@ import java.nio.file.Paths;
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
 @Service
-public class ImageResizeServiceImpl implements ImageResizeService {
-    private final static Logger logger = LoggerFactory.getLogger(ImageResizeServiceImpl.class);
+public class ImageFileServiceImpl implements ImageFileService {
+    private final static Logger logger = LoggerFactory.getLogger(ImageFileServiceImpl.class);
 
     @Autowired
     private RubybooruConfig config;
@@ -52,6 +52,27 @@ public class ImageResizeServiceImpl implements ImageResizeService {
             }
         }
         return file;
+    }
+
+    /**
+     * Open image in file explorer
+     *
+     * @param image Image entity
+     */
+    @Override
+    public void open(Image image) {
+        Path path = Paths.get(config.getGalleryPath() + DirUtils.getPath(image));
+//        path = path.replace('/', File.separatorChar);
+//        path = path.replace('\\', File.separatorChar);
+//        path = path.replaceAll(
+//                File.separatorChar == '\\' ? "\\\\+" : File.separator + "+",
+//                File.separatorChar == '\\' ? "\\\\" : File.separator);
+        try {
+            logger.debug("opening {}", path);
+            Runtime.getRuntime().exec("explorer.exe /select," + path);
+        } catch (IOException e) {
+            logger.error("Couldn't open {} in explorer.exe", path, e);
+        }
     }
 
     /**

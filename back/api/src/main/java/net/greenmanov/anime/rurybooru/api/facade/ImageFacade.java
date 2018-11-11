@@ -22,12 +22,28 @@ public interface ImageFacade {
 
     /**
      * Return file name of resized version of image saved in tmp path
-     * @param id image id
-     * @param width image width
+     *
+     * @param id     image id
+     * @param width  image width
      * @param height image height
      * @return File name
      */
     String getTmpImage(long id, int width, int height);
+
+    /**
+     * Return path to image from gallery root
+     *
+     * @param id image id
+     * @return Path to image file
+     */
+    String getPath(long id);
+
+    /**
+     * Open image in file explorer
+     *
+     * @param id image id
+     */
+    void open(long id);
 
     /**
      * Return list of images based on parameters of DTO object

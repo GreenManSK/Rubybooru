@@ -3,9 +3,13 @@ package net.greenmanov.anime.rurybooru.service.facade;
 import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
 import net.greenmanov.anime.rurybooru.api.dto.ImageDTO;
 import net.greenmanov.anime.rurybooru.api.facade.ImageFacade;
+import net.greenmanov.anime.rurybooru.persistance.RubybooruConfig;
+import net.greenmanov.anime.rurybooru.persistance.utils.DirUtils;
 import net.greenmanov.anime.rurybooru.service.BeanMappingService;
-import net.greenmanov.anime.rurybooru.service.ImageResizeService;
+import net.greenmanov.anime.rurybooru.service.ImageFileService;
 import net.greenmanov.anime.rurybooru.service.ImageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +29,7 @@ public class ImageFacadeImpl implements ImageFacade {
     private ImageService imageService;
 
     @Autowired
-    private ImageResizeService imageResizeService;
+    private ImageFileService imageFileService;
 
     @Autowired
     private BeanMappingService mapper;
@@ -42,6 +46,27 @@ public class ImageFacadeImpl implements ImageFacade {
     }
 
     /**
+     * Return path to image from gallery root
+     *
+     * @param id image id
+     * @return Path to image file
+     */
+    @Override
+    public String getPath(long id) {
+        return DirUtils.getPath(imageService.getById(id));
+    }
+
+    /**
+     * Open image in file explorer
+     *
+     * @param id image id
+     */
+    @Override
+    public void open(long id) {
+        imageFileService.open(imageService.getById(id));
+    }
+
+    /**
      * Return file name of resized version of image saved in tmp path
      * @param id image id
      * @param width image width
@@ -50,7 +75,7 @@ public class ImageFacadeImpl implements ImageFacade {
      */
     @Override
     public String getTmpImage(long id, int width, int height) {
-       return imageResizeService.resize(imageService.getById(id), width, height);
+       return imageFileService.resize(imageService.getById(id), width, height);
     }
 
     /**

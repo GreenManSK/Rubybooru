@@ -19,6 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import static net.greenmanov.anime.rurybooru.rest.ApiUris.STATIC_GALLERY_URI;
+import static net.greenmanov.anime.rurybooru.rest.ApiUris.STATIC_TMP_URI;
+
 /**
  * WebContext for REST API
  *
@@ -67,8 +70,11 @@ public class RestWebContext implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/tmp/**")
+                .addResourceHandler(STATIC_TMP_URI + "/**")
                 .addResourceLocations("file:/" + config.getServerTmpPath())
+                .setCachePeriod(DEFAULT_CACHE_PERIOD);
+        registry.addResourceHandler(STATIC_GALLERY_URI + "/**")
+                .addResourceLocations("file:/" + config.getGalleryPath())
                 .setCachePeriod(DEFAULT_CACHE_PERIOD);
     }
 }
