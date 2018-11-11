@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { faAngleDoubleLeft, faAngleDoubleRight, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { Tag } from "./entity/tag";
+import { TagType } from "./entity/tag-type.enum";
+import { Image } from "./entity/image";
 
 @Component({
   selector: 'app-root',
@@ -7,28 +9,26 @@ import { faAngleDoubleLeft, faAngleDoubleRight, faQuestion } from '@fortawesome/
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'app';
-  faSquare = faQuestion;
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  tagTypes = [
-    'copyright',
-    'circle',
-    'character',
-    'meta',
-    'medium',
-    'studio',
-    'style',
-    'source',
-    'faults',
-    'general',
-    'general',
-    'general',
-    'general',
-    'general'
+  test: Tag[] = [
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
+    new Tag(10, "Test tag", TagType.GENERAL, 128),
   ];
 
-  arrayOne( n: number ): any[] {
-    return Array(n);
-  }
+  images: Image[] = [
+    new Image(1, "test"),
+    new Image(2, "test"),
+    new Image(3, "test"),
+    new Image(4, "test"),
+    new Image(5, "test"),
+    new Image(7, "test"),
+    new Image(8, "test"),
+    new Image(25, "test"),
+    new Image(45, "test"),
+    new Image(644, "test"),
+  ];
 }

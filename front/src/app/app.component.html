@@ -1,1 +1,13 @@
-<app-gallery></app-gallery>
+<div class="container-fluid">
+  <div class="menu">
+    <h1 class="logo"><a title="Rubybooru" href="/"><span>Rubybooru</span></a></h1>
+    <app-menu></app-menu>
+    <app-search-bar></app-search-bar>
+    <!--<router-outlet name="sidebar"></router-outlet>-->
+    <app-tag-list [tags]="test"></app-tag-list>
+  </div>
+  <div class="content">
+    <app-image-gallery [images]="images"></app-image-gallery>
+    <!--<router-outlet></router-outlet>-->
+  </div>
+</div>
