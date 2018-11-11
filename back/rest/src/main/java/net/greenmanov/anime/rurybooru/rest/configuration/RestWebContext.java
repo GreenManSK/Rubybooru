@@ -68,7 +68,7 @@ public class RestWebContext implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/tmp/**")
-                .addResourceLocations(config.getServerTmpPath())
+                .addResourceLocations("file:/" + config.getServerTmpPath())
                 .setCachePeriod(DEFAULT_CACHE_PERIOD);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
@@ -28,11 +30,20 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories
+@PropertySource("classpath:configuration.properties")
 @ComponentScan(basePackageClasses = {DaoPackage.class, RubybooruConfig.class})
 public class RubybooruApplicationContext {
 
     @Autowired
+    private Environment env;
+
+    @Autowired
     private RubybooruConfig config;
+
+    @Bean
+    public RubybooruConfig createConfiguration() {
+        return new RubybooruConfig(env);
+    }
 
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory emf) {

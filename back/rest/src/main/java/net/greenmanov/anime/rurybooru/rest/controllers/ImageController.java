@@ -49,13 +49,19 @@ public class ImageController {
     /**
      * Reditect to file with image resized to provided width and height. Aspect ration of image is not changed,
      * bigger side is fit to provided width or height
-     * @param width Width in pixels
+     *
+     * @param width  Width in pixels
      * @param height Height in pixels
      * @return RedirectView
      */
     @RequestMapping(value = "/tmp/{id}", method = RequestMethod.GET)
-    public final RedirectView getTmpImage(@Min(100) Integer width, @Min(100) Integer height) {
-        String imageName = ""; // TODO
+    public final RedirectView getTmpImage(
+            @PathVariable("id") long id,
+            @Min(100) Integer width,
+            @Min(100) Integer height
+    ) {
+        logger.debug("getTmpImage({}, {}, {})", id, width, height);
+        String imageName = imageFacade.getTmpImage(id, width, height);
         RedirectView redirect = new RedirectView();
         redirect.setUrl("../../tmp/" + imageName);
         return redirect;

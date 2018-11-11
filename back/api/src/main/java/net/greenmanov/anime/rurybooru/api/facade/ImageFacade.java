@@ -21,6 +21,15 @@ public interface ImageFacade {
     ImageDTO getById(long id);
 
     /**
+     * Return file name of resized version of image saved in tmp path
+     * @param id image id
+     * @param width image width
+     * @param height image height
+     * @return File name
+     */
+    String getTmpImage(long id, int width, int height);
+
+    /**
      * Return list of images based on parameters of DTO object
      *
      * @param getImagesDTO GetImagesDTO

@@ -1,21 +1,19 @@
 package net.greenmanov.anime.rurybooru.persistance;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 /**
  * Class RurbybooruConfig
  *
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
-@PropertySource("classpath:configuration.properties")
-@Component
 public class RubybooruConfig {
 
-    @Autowired
     private Environment env;
+
+    public RubybooruConfig(Environment env) {
+        this.env = env;
+    }
 
     public String getGalleryPath() {
         return env.getProperty("sync.galleryPath");
