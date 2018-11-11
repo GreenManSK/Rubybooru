@@ -62,11 +62,6 @@ public class ImageFileServiceImpl implements ImageFileService {
     @Override
     public void open(Image image) {
         Path path = Paths.get(config.getGalleryPath() + DirUtils.getPath(image));
-//        path = path.replace('/', File.separatorChar);
-//        path = path.replace('\\', File.separatorChar);
-//        path = path.replaceAll(
-//                File.separatorChar == '\\' ? "\\\\+" : File.separator + "+",
-//                File.separatorChar == '\\' ? "\\\\" : File.separator);
         try {
             logger.debug("opening {}", path);
             Runtime.getRuntime().exec("explorer.exe /select," + path);
