@@ -1,0 +1,18 @@
+<ng-container *ngIf="image">
+  <div class="info">
+    <div class="line">
+      <strong>Date:</strong> {{image.date | date:'dd. MM. yyyy, HH:mm'}}
+    </div>
+    <div class="line">
+      <strong>Size:</strong>&nbsp;
+      <a href="#" (click)="openImage()">{{image.width ? image.width : '__'}}x{{image.height ? image.height : '__'}}</a>
+    </div>
+    <div *ngIf="image.source" class="line link">
+      <strong>Source:</strong>&nbsp;<a href="{{image.source}}">{{shortenSource(image.source)}}</a>
+    </div>
+    <div *ngIf="image.infoSource" class="line link">
+      <strong>Info source:</strong>&nbsp;<a href="{{image.infoSource}}">{{shortenSource(image.infoSource)}}</a>
+    </div>
+  </div>
+  <app-tag-list [tags]="tags"></app-tag-list>
+</ng-container>

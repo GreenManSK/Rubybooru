@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -8,6 +9,9 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { TagListComponent } from './tag-list/tag-list.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { ImageComponent } from './image/image/image.component';
+import { ImagePanelComponent } from './image/image-panel/image-panel.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +20,15 @@ import { TagListComponent } from './tag-list/tag-list.component';
     SearchBarComponent,
     ImageGalleryComponent,
     TagListComponent,
+    PaginationComponent,
+    ImageComponent,
+    ImagePanelComponent,
   ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

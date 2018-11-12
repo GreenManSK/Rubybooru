@@ -1,0 +1,5 @@
+<div class="img-view">
+  <img *ngIf="image" class="mini"
+       (click)="toggleMini($event.target)"
+       [src]="imageApi.getImageFileUrl(image.id)">
+</div>

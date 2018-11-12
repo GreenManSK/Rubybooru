@@ -1,0 +1,36 @@
+<nav class="paginator">
+  <a [ngClass]="{
+    'btn': true,
+    'disabled': actualPage == 1
+  }" href="#" (click)="changePage(1)">
+    <fa-icon [icon]="firstIcon"></fa-icon>
+  </a>
+
+  <a [ngClass]="{
+    'btn': true,
+    'disabled': actualPage <= 1
+  }" href="#" (click)="changePage(actualPage - 1)">
+    <fa-icon [icon]="leftIcon"></fa-icon>
+  </a>
+
+
+  <a *ngFor="let i of pageArray()" [ngClass]="{
+    btn: true,
+    active: actualPage == i
+  }" href="#" (click)="changePage(i)">{{i}}</a>
+
+
+  <a [ngClass]="{
+    'btn': true,
+    'disabled': actualPage >= pages
+  }" href="#" (click)="changePage(actualPage + 1)">
+    <fa-icon [icon]="rightIcon"></fa-icon>
+  </a>
+
+  <a [ngClass]="{
+    'btn': true,
+    'disabled': actualPage == pages
+  }" href="#" (click)="changePage(pages)">
+    <fa-icon [icon]="lastIcon"></fa-icon>
+  </a>
+</nav>

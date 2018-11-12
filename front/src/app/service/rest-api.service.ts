@@ -1,24 +1,28 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class RestAPIService {
 
-  private _URL = 'http://localhost:8080/rurybooru/rest/';
-  private IMAGE_TMP = 'image/tmp/';
-  private IMAGE_OPEN = 'image/open/';
+export abstract class RestAPIService {
 
-  constructor() {
+  protected _URL = 'http://localhost:8080/rurybooru/rest/';
+
+  constructor( public http: HttpClient ) {
   }
 
-  /** URLs */
-  getImageThumbUrl( id: number, width: number, height: number ): string {
-    return this._URL + this.IMAGE_TMP + id + '?width=' + width + '&height=' + height;
-  }
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  protected handleError<T>( operation = 'operation', result?: T ) {
+    return ( error: any ): Observable<T> => {
 
-  getOpenImageUrl( id: number ): string {
-    return this._URL + this.IMAGE_OPEN + id;
+      console.error(`${operation} failed: ${error.message}`, error); // log to console
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 
   get URL(): string {

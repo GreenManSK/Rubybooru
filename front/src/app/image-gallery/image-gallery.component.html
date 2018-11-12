@@ -6,7 +6,7 @@
         <a class="img-link" routerLink="'/image/{{img.id}}">
           <img [src]="restApi.getImageThumbUrl(img.id, TMP_WIDTH, TMP_HEIGHT)" alt=""/>
         </a>
-        <a class="download-link" [href]="restApi.getOpenImageUrl(img.id)" target="_blank"> <!-- do request in on click method -->
+        <a class="download-link" (click)="openImage(img.id)" href="#">
           {{img.width ? img.width : '__'}}x{{img.height ? img.height : '__'}}</a>
       </div>
     </div>
