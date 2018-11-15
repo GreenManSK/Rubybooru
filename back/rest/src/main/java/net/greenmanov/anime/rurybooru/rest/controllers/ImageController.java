@@ -13,8 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 import static net.greenmanov.anime.rurybooru.rest.ApiUris.STATIC_GALLERY_URI;
@@ -60,8 +59,8 @@ public class ImageController {
     @RequestMapping(value = "/tmp/{id}", method = RequestMethod.GET)
     public final RedirectView getTmpImage(
             @PathVariable("id") long id,
-            @Min(100) Integer width,
-            @Min(100) Integer height
+            @Size(min = 100) @RequestParam()  Integer width,
+            @Size(min = 100) @RequestParam()  Integer height
     ) {
         logger.debug("getTmpImage({}, {}, {})", id, width, height);
         String imageName = imageFacade.getTmpImage(id, width, height);
@@ -110,8 +109,8 @@ public class ImageController {
             @RequestParam(required = false) List<Long> tags,
             @RequestParam(required = false) Long dirId,
             @RequestParam(required = false) Order order,
-            @Max(128) @Min(1) Integer perPage,
-            @Min(1) Integer page) {
+            @Size(min = 1, max = 128) @RequestParam() Integer perPage,
+            @Size(min = 1) @RequestParam() Integer page) {
         GetImagesDTO dto = new GetImagesDTO();
         dto.setDir(dirId);
         dto.setOrder(order == null ? Order.NEWEST : order);
