@@ -16,7 +16,7 @@ public class DirDTO {
     private Long id;
     private String name;
     private Long parentId;
-    private Map<String, DirDTO> subDirs = new HashMap<>();
+//    private Map<String, DirDTO> subDirs = new HashMap<>();
 
     public DirDTO() {
     }
@@ -45,13 +45,13 @@ public class DirDTO {
         this.parentId = parentId;
     }
 
-    public Map<String, DirDTO> getSubDirs() {
-        return subDirs;
-    }
-
-    public void setSubDirs(Map<String, DirDTO> subDirs) {
-        this.subDirs = subDirs;
-    }
+//    public Map<String, DirDTO> getSubDirs() {
+//        return subDirs;
+//    }
+//
+//    public void setSubDirs(Map<String, DirDTO> subDirs) {
+//        this.subDirs = subDirs;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -73,7 +73,7 @@ public class DirDTO {
                 .add("id", id)
                 .add("name", name)
                 .add("parent", parentId)
-                .add("subDirs", subDirs)
+//                .add("subDirs", subDirs)
                 .toString();
     }
 }
