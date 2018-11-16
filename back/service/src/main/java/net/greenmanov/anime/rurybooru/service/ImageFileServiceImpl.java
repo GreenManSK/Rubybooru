@@ -46,7 +46,7 @@ public class ImageFileServiceImpl implements ImageFileService {
             try {
                 BufferedImage bi = ImageIO.read(imagePath.toFile());
                 BufferedImage resized = resize(bi, width, height);
-                ImageIO.write(resized, Files.getFileExtension(image.getName()), tmpFilePath.toFile());
+                ImageIO.write(resized, "jpg", tmpFilePath.toFile());
             } catch (IOException e) {
                 logger.error("Couldn't resize image {}", imagePath, e);
             }
