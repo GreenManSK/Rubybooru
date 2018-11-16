@@ -63,9 +63,8 @@ public class TagFacadeImpl implements TagFacade {
         Tag tag = tagService.getById(id);
         long count = tagService.getTagUseCount(tag);
 
-        TagInfoDTO info = new TagInfoDTO();
+        TagInfoDTO info = mapper.mapTo(tag, TagInfoDTO.class);
         info.setCount(count);
-        info.setTag(mapper.mapTo(tag, TagDTO.class));
 
         return info;
     }
@@ -85,9 +84,8 @@ public class TagFacadeImpl implements TagFacade {
             tags.addAll(image.getTags());
         }
         return Multisets.copyHighestCountFirst(tags).stream().limit(n).map(tag -> {
-            TagInfoDTO info = new TagInfoDTO();
+            TagInfoDTO info = mapper.mapTo(tag, TagInfoDTO.class);
             info.setCount(tagService.getTagUseCount(tag));
-            info.setTag(mapper.mapTo(tag, TagDTO.class));
             return info;
         }).collect(Collectors.toList());
     }

@@ -76,7 +76,7 @@ public class TagFacadeImplTest extends AbstractTestNGSpringContextTests {
         verify(tagService).getById(tag.getId());
         verify(tagService).getTagUseCount(tag);
         assertEquals(tagCount, tagInfo.getCount());
-        Tag foundTag = mappingService.mapTo(tagInfo.getTag(), Tag.class);
+        Tag foundTag = mappingService.mapTo(tagInfo, Tag.class);
         assertEquals(tag, foundTag);
     }
 }
