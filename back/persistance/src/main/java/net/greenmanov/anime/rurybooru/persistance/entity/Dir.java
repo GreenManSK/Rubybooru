@@ -74,7 +74,7 @@ public class Dir {
     }
 
     public Map<String, Image> getImages() {
-        return ImmutableMap.copyOf(images);
+        return Collections.unmodifiableMap(images);
     }
 
     public void addImage(Image image) {
