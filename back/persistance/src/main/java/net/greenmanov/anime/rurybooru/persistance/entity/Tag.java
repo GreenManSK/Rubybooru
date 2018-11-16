@@ -28,9 +28,6 @@ public class Tag {
     @Enumerated(EnumType.STRING)
     private TagType type;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Image> images = new HashSet<>();
-
     public Tag() {
     }
 
@@ -61,17 +58,6 @@ public class Tag {
 
     public void setType(TagType type) {
         this.type = type;
-    }
-
-    public void addImage(Image image) {
-        images.add(image);
-    }
-    public void removeImage(Image image) {
-        images.remove(image);
-    }
-
-    public Set<Image> getImages() {
-        return ImmutableSet.copyOf(images);
     }
 
     @Override

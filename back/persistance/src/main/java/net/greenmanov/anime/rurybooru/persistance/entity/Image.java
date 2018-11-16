@@ -119,12 +119,10 @@ public class Image {
 
     public void addTag(Tag tag) {
         this.tags.add(tag);
-        tag.addImage(this);
     }
 
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
-        tag.removeImage(this);
     }
 
     @Override
