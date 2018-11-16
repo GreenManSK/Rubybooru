@@ -2,10 +2,13 @@ package net.greenmanov.anime.rurybooru.persistance.entity;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableSet;
 import net.greenmanov.iqdb.parsers.TagType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Tag entity
@@ -24,6 +27,9 @@ public class Tag {
     @NotNull
     @Enumerated(EnumType.STRING)
     private TagType type;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Image> images = new HashSet<>();
 
     public Tag() {
     }
@@ -57,6 +63,16 @@ public class Tag {
         this.type = type;
     }
 
+    public void addImage(Image image) {
+        images.add(image);
+    }
+    public void removeImage(Image image) {
+        images.remove(image);
+    }
+
+    public Set<Image> getImages() {
+        return ImmutableSet.copyOf(images);
+    }
 
     @Override
     public boolean equals(Object o) {

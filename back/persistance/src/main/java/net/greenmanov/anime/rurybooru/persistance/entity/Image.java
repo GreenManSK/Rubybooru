@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rurybooru.persistance.entity;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableSet;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -113,15 +114,17 @@ public class Image {
     }
 
     public Set<Tag> getTags() {
-        return tags;
+        return ImmutableSet.copyOf(tags);
     }
 
     public void addTag(Tag tag) {
         this.tags.add(tag);
+        tag.addImage(this);
     }
 
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
+        tag.removeImage(this);
     }
 
     @Override
