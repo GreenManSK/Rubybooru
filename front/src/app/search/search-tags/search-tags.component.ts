@@ -39,7 +39,6 @@ export class SearchTagsComponent implements OnInit {
 
   getMostCommonTags() {
     this.urlTags = this.urlParser.getTags();
-    this.tags = [];
     this.imageApi.getImages(SearchTagsComponent.TAGS_FROM_PAGES, 1, this.urlTags, ImageOrder.NEWEST).subscribe(images => {
       const counting = {};
       for (const key of Object.keys(TagType)) {
@@ -56,6 +55,7 @@ export class SearchTagsComponent implements OnInit {
           }
         }
       }
+      this.tags = [];
       for (const counter of Object.keys(counting)) {
         const typeCounts = counting[counter];
         const sortedIds = Object.keys(typeCounts).sort(function ( a, b ) {
