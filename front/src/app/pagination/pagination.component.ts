@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faAngleDoubleLeft, faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleLeft, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 
 @Component({
@@ -20,7 +20,6 @@ export class PaginationComponent implements OnInit {
   leftIcon = faAngleLeft;
   rightIcon = faAngleRight;
   firstIcon = faAngleDoubleLeft;
-  lastIcon = faAngleDoubleRight;
 
   ngOnInit() {
   }

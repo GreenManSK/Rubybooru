@@ -12,6 +12,8 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ImageComponent } from './image/image/image.component';
 import { ImagePanelComponent } from './image/image-panel/image-panel.component';
+import { SearchImagesComponent } from './search/search-images/search-images.component';
+import { SearchTagsComponent } from './search/search-tags/search-tags.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ImagePanelComponent } from './image/image-panel/image-panel.component';
     PaginationComponent,
     ImageComponent,
     ImagePanelComponent,
+    SearchImagesComponent,
+    SearchTagsComponent,
   ],
   imports: [
     BrowserModule,

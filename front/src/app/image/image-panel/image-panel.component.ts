@@ -29,7 +29,7 @@ export class ImagePanelComponent implements OnInit {
       this.image = image;
       for (const tag of image.tags) {
         this.tagApi.getTag(tag.id).subscribe(t => {
-          this.tags.push(new Tag(t.tag.id, t.tag.name, t.tag.type, t.count));
+          this.tags.push(t);
         });
       }
     });

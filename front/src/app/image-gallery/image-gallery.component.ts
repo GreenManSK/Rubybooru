@@ -9,6 +9,7 @@ import { ImageApiService } from "../service/image-api.service";
 })
 export class ImageGalleryComponent implements OnInit {
 
+  public static PER_PAGE = 24;
   @Input() images: Image[] = [];
   public TMP_WIDTH = 350;
   public TMP_HEIGHT = 180;

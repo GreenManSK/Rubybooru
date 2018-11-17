@@ -3,8 +3,8 @@
        class="col-xl-2 col-lg-3 col-md-3 col-sm-4 img-container">
     <div class="img">
       <div>
-        <a class="img-link" routerLink="'/image/{{img.id}}">
-          <img [src]="restApi.getImageThumbUrl(img.id, TMP_WIDTH, TMP_HEIGHT)" alt=""/>
+        <a class="img-link" [routerLink]="['/image', img.id]">
+          <img [src]="imageApi.getImageThumbUrl(img.id, TMP_WIDTH, TMP_HEIGHT)" alt=""/>
         </a>
         <a class="download-link" (click)="openImage(img.id)" href="#">
           {{img.width ? img.width : '__'}}x{{img.height ? img.height : '__'}}</a>

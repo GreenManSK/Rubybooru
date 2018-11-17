@@ -3,7 +3,9 @@ import { RestAPIService } from "./rest-api.service";
 import { Observable } from "rxjs";
 import { Image } from "../entity/image";
 import { catchError } from "rxjs/operators";
-import { HttpClient } from "../../../node_modules/@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "../../../node_modules/@angular/common/http";
+import { ImageOrder } from "../search/image-order.enum";
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +21,15 @@ export class ImageApiService extends RestAPIService {
     super(http);
   }
 
-  getImages(): Observable<Image[]> {
-    return this.http.get<Image[]>(this._URL + this.IMAGE_GET)
+  getImages( perPage: number, page: number, tags: number[], order: ImageOrder ): Observable<Image[]> {
+    let query = '?';
+    query += 'perPage=' + perPage + '&';
+    query += 'page=' + page + '&';
+    if (tags) {
+      tags.forEach(t => query += 'tags=' + t + '&');
+    }
+    query += 'order=' + order;
+    return this.http.get<Image[]>(this.getImageUrl() + query)
       .pipe(
         catchError(this.handleError('getImages', []))
       );
@@ -48,7 +57,7 @@ export class ImageApiService extends RestAPIService {
     return this._URL + this.IMAGE_OPEN + id;
   }
 
-  getImageUrl( id: number ): string {
+  getImageUrl( id: number = null ): string {
     return this._URL + this.IMAGE_GET + (id !== null ? '/' + id : '');
   }
 
