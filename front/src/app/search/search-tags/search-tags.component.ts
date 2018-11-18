@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tag } from "../../entity/tag";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ImageApiService } from "../../service/image-api.service";
 import { TagApiService } from "../../service/tag-api.service";
 import { TagType } from "../../entity/tag-type.enum";
@@ -21,8 +21,13 @@ export class SearchTagsComponent implements OnInit {
   urlParser: UrlParserService;
   urlTags: number[];
 
-  constructor( private route: ActivatedRoute, public imageApi: ImageApiService, public tagApi: TagApiService ) {
-    this.urlParser = new UrlParserService(route);
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public imageApi: ImageApiService,
+    public tagApi: TagApiService
+  ) {
+    this.urlParser = new UrlParserService(router, route);
     this.route.queryParams.subscribe(() => this.getMostCommonTags());
 
     for (const t of Object.keys(TagType)) {

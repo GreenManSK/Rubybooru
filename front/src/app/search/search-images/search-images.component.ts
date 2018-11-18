@@ -24,7 +24,7 @@ export class SearchImagesComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public imageApi: ImageApiService ) {
-    this.urlParser = new UrlParserService(route);
+    this.urlParser = new UrlParserService(router, route);
     this.route.params.subscribe(() => this.onParamChange());
     this.route.queryParams.subscribe(() => this.onParamChange());
   }
@@ -48,7 +48,7 @@ export class SearchImagesComponent implements OnInit {
   }
 
   pageChange( page: number ) {
-    this.router.navigateByUrl(this.urlParser.changePage(page));
+    this.urlParser.navigatePage(page);
   }
 
 }

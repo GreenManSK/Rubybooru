@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ImageOrder } from "./image-order.enum";
 import { Tag } from "../entity/tag";
 
@@ -12,7 +12,7 @@ export class UrlParserService {
   private static TAGS = 'tags';
   private static ORDER = 'order';
 
-  constructor( private route: ActivatedRoute ) {
+  constructor( private router: Router, private route: ActivatedRoute ) {
 
   }
 
@@ -25,11 +25,14 @@ export class UrlParserService {
   }
 
   getTags(): number[] {
-    const tags = this.route.snapshot.queryParamMap.get(UrlParserService.TAGS);
+    let tags = this.route.snapshot.queryParams[UrlParserService.TAGS];
     if (!tags) {
       return null;
     }
-    return tags.split('-').map(tag => parseInt(tag.replace(/^(\d+)_.*/, '$1'), 10));
+    if (!Array.isArray(tags)) {
+      tags = [tags];
+    }
+    return tags.map(tag => parseInt(tag.replace(/^(\d+)_.*/, '$1'), 10));
   }
 
   getOrder(): ImageOrder {
@@ -40,38 +43,16 @@ export class UrlParserService {
     return ImageOrder.NEWEST;
   }
 
-  generateUrl( page: number, tags: Tag[] = null, order: ImageOrder = ImageOrder.NEWEST ): string {
-    let query = '';
-    if (tags != null) {
-      query = '?tags=' + this.tagsToString(tags);
-    }
-    if (order !== ImageOrder.NEWEST) {
-      query += query === '' ? '?' : '&';
-      query += 'order=' + order;
-    }
-    return '/' + page + query;
+  navigate( page: number, tags: Tag[] = null, order: ImageOrder = ImageOrder.NEWEST ): void {
+    this.router.navigate(['/' + page], {
+      queryParams: {
+        tags: tags.map(tag => tag.id + '_' + tag.name),
+        order: order
+      }
+    });
   }
 
-  changePage( page: number ) {
-    let query = '?';
-    const params = this.route.snapshot.queryParamMap;
-    for (const p of params.keys) {
-      if (query !== '?') {
-        query += '&';
-      }
-      query += p + '=' + params.get(p);
-    }
-    return '/' + page + (query !== '?' ? query : '');
-  }
-
-  private tagsToString( tags: Tag[] ): string {
-    let result = '';
-    for (const t of tags) {
-      if (result !== '') {
-        result += '-';
-      }
-      result += t.id + '_' + t.name;
-    }
-    return encodeURI(result);
+  navigatePage( page: number ): void {
+    this.router.navigate(['/' + page], {queryParams: this.route.snapshot.queryParams});
   }
 }
