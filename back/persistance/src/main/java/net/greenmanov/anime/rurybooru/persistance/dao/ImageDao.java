@@ -76,4 +76,13 @@ public interface ImageDao {
      */
     List<Image> getImages(List<Long> tagIds, Long dirId, ComparableExpressionBase sortColumn, boolean desc, Integer perPage,
                           Integer page);
+
+    /**
+     * Retrieve number of images that satisfy provided parameters
+     *
+     * @param tagIds     List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId      ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Number of images
+     */
+    Long getImagesCount(List<Long> tagIds, Long dirId);
 }

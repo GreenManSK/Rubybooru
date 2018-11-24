@@ -59,8 +59,8 @@ public class ImageController {
     @RequestMapping(value = "/tmp/{id}", method = RequestMethod.GET)
     public final RedirectView getTmpImage(
             @PathVariable("id") long id,
-            @Size(min = 100) @RequestParam()  Integer width,
-            @Size(min = 100) @RequestParam()  Integer height
+            @Size(min = 100) @RequestParam() Integer width,
+            @Size(min = 100) @RequestParam() Integer height
     ) {
         logger.debug("getTmpImage({}, {}, {})", id, width, height);
         String imageName = imageFacade.getTmpImage(id, width, height);
@@ -119,5 +119,18 @@ public class ImageController {
         dto.setTags(tags);
         logger.debug("getImages({})", dto);
         return imageFacade.getImages(dto);
+    }
+
+    @RequestMapping(value = "/count", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Long getImageCount(
+            @RequestParam(required = false) List<Long> tags,
+            @RequestParam(required = false) Long dirId
+    ) {
+        GetImagesDTO dto = new GetImagesDTO();
+        dto.setDir(dirId);
+        dto.setTags(tags);
+
+        logger.debug("getImagesCount({})", dto);
+        return imageFacade.getImagesCount(dto);
     }
 }

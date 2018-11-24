@@ -87,6 +87,30 @@ public class ImageDaoImpl implements ImageDao {
     }
 
     /**
+     * Retrieve number of images that satisfy provided parameters
+     *
+     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Number of images
+     */
+    @Override
+    public Long getImagesCount(List<Long> tagIds, Long dirId) {
+        JPAQuery<Image> query = new JPAQuery<>(em).select(IMAGE).from(IMAGE);
+
+        if (tagIds != null) {
+            for (Long t : tagIds) {
+                query.where(IMAGE.tags.any().id.eq(t));
+            }
+        }
+
+        if (dirId != null) {
+            query.where(IMAGE.parent.id.eq(dirId));
+        }
+
+        return query.fetchCount();
+    }
+
+    /**
      * Get all images with provided tag
      *
      * @param tag Image tag

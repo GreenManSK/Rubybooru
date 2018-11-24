@@ -48,6 +48,18 @@ public class ImageServiceImpl implements ImageService {
         return imageDao.getImages(tagIds, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
     }
 
+    /**
+     * Retrieve number of images that satisfy provided parameters
+     *
+     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Number of images
+     */
+    @Override
+    public Long getImagesCount(List<Long> tagIds, Long dirId) {
+        return imageDao.getImagesCount(tagIds, dirId);
+    }
+
     private ComparableExpressionBase getSortColumn(Order order) {
         switch (order) {
             case WIDTH:
