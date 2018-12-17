@@ -4,6 +4,7 @@ import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import { TagType } from "../entity/tag-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UrlParserService } from "../search/url-parser.service";
+import { t } from "../../../node_modules/@angular/core/src/render3";
 
 @Component({
   selector: 'app-tag-list',
@@ -12,13 +13,24 @@ import { UrlParserService } from "../search/url-parser.service";
 })
 export class TagListComponent implements OnInit {
 
-  faSquare = faQuestion;
-  typesSort = [TagType.COPYRIGHT, TagType.CHARACTER, TagType.CIRCLE, TagType.ARTIST, TagType.STUDIO, TagType.GENERAL, TagType.META,
+  static typesSort = [TagType.COPYRIGHT, TagType.CHARACTER, TagType.CIRCLE, TagType.ARTIST, TagType.STUDIO, TagType.GENERAL, TagType.META,
     TagType.MEDIUM, TagType.STYLE, TagType.SOURCE, TagType.FAULTS
   ];
+
+  faSquare = faQuestion;
   public urlParser: UrlParserService;
 
   @Input() tags: Tag[] = [];
+
+  static sortTags( tags: Tag[] ): Tag[] {
+    return tags.sort(( a: any, b: any ) => {
+      if (a.type === b.type) {
+        return b.count - a.count;
+      }
+      return TagListComponent.typesSort.indexOf(a.type.toLocaleLowerCase())
+      < TagListComponent.typesSort.indexOf(b.type.toLocaleLowerCase()) ? -1 : 1;
+    });
+  }
 
   constructor(
     private router: Router,
@@ -33,12 +45,7 @@ export class TagListComponent implements OnInit {
   }
 
   sortTags( tags: Tag[] ): Tag[] {
-    return tags.sort(( a: any, b: any ) => {
-      if (a.type === b.type) {
-        return b.count - a.count;
-      }
-      return this.typesSort.indexOf(a.type.toLocaleLowerCase()) < this.typesSort.indexOf(b.type.toLocaleLowerCase()) ? -1 : 1;
-    });
+    return TagListComponent.sortTags(tags);
   }
 
 }

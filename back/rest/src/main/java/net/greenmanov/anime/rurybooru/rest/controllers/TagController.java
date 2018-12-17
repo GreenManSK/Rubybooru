@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rurybooru.rest.controllers;
 
 import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
+import net.greenmanov.anime.rurybooru.api.dto.TagDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagInfoDTO;
 import net.greenmanov.anime.rurybooru.api.enums.Order;
 import net.greenmanov.anime.rurybooru.api.facade.TagFacade;
@@ -65,5 +66,15 @@ public class TagController {
         dto.setTags(tags);
         logger.debug("getTagInfoForGetImage({}, {})", dto, number);
         return tagFacade.getTagInfoForGetImage(dto, number);
+    }
+
+    /**
+     * Return all tags
+     * @return all tags
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<TagDTO> getTags() {
+        logger.debug("getTags()");
+        return tagFacade.getAll();
     }
 }

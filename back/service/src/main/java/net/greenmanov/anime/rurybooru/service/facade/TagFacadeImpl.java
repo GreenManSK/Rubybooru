@@ -53,6 +53,16 @@ public class TagFacadeImpl implements TagFacade {
     }
 
     /**
+     * Retrieve all tags
+     *
+     * @return list of all tags
+     */
+    @Override
+    public List<TagDTO> getAll() {
+        return mapper.mapTo(tagService.getAll(), TagDTO.class);
+    }
+
+    /**
      * Return TagInfo by id
      *
      * @param id tag id

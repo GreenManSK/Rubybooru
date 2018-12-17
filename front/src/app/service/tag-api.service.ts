@@ -23,8 +23,18 @@ export class TagApiService extends RestAPIService {
     );
   }
 
+  getTags(): Observable<Tag[]> {
+    return this.http.get<Tag[]>(this.getAllUrl()).pipe(
+      catchError(this.handleError<Tag[]>('getAll()', null))
+    );
+  }
+
   /** URLs */
   getTagUrl( id: number ): string {
     return this._URL + this.TAG_GET + '/' + id;
+  }
+
+  getAllUrl(): string {
+    return this._URL + this.TAG_GET + '/';
   }
 }

@@ -9,26 +9,5 @@ import { Image } from "./entity/image";
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  test: Tag[] = [
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-    new Tag(10, "Test tag", TagType.GENERAL, 128),
-  ];
 
-  images: Image[] = [
-    new Image(1, "test"),
-    new Image(2, "test"),
-    new Image(3, "test"),
-    new Image(4, "test"),
-    new Image(5, "test"),
-    new Image(7, "test"),
-    new Image(8, "test"),
-    new Image(25, "test"),
-    new Image(45, "test"),
-    new Image(644, "test"),
-  ];
 }

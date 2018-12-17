@@ -21,6 +21,12 @@ public interface TagFacade {
     TagDTO getById(long id);
 
     /**
+     * Retrieve all tags
+     * @return list of all tags
+     */
+    List<TagDTO> getAll();
+
+    /**
      * Return TagInfo by id
      * @param id tag id
      * @return tag info or {@code null}, if tag with id do not exists

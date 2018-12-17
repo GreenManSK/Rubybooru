@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
 import { Tag } from "../entity/tag";
+import { WhispererTag } from "./whisperer-tag";
+import { TagListComponent } from "../tag-list/tag-list.component";
+import { TagType } from "../entity/tag-type.enum";
 
 @Component({
   selector: 'app-whisperer-input',
@@ -16,9 +19,9 @@ export class WhispererInputComponent implements OnInit {
   @Input() id = '';
   @Input() name = '';
   @Input() placeholder = '';
-  @Input() items: Tag[];
   @Input() whisperLimit = 10;
 
+  tags: WhispererTag[] = [];
   whisperer = [];
   focusTimer = 0;
   activeIndex = -1;
@@ -27,25 +30,39 @@ export class WhispererInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.items = this.items.sort(( a, b ) => a.name.localeCompare(b.name));
+  }
+
+  @Input()
+  set items( items: Tag[] ) {
+    this.tags = items.sort(( a, b ) => {
+      if (a.type === b.type) {
+        return a.name.localeCompare(b.name);
+      }
+      return TagListComponent.typesSort.indexOf(TagType[a.type]) < TagListComponent.typesSort.indexOf(TagType[b.type]) ? -1 : 1;
+    }).map(i => new WhispererTag(i));
+  }
+
+  @Input()
+  set defaultValue( value: String ) {
+    this.inputElement.nativeElement.value = value;
   }
 
   valueChange( value: string ): void {
     let usedItems = this.splitValues(value);
     usedItems = usedItems.map(i => i.toLocaleLowerCase());
     const prefix = usedItems[usedItems.length - 1];
-    const new_whisper_items = [];
+    const newWhisperItems = [];
     if (prefix.length > 0) {
-      for (const item of this.items) {
-        if (item.name.startsWith(prefix) && usedItems.indexOf(item.name) === -1) {
-          new_whisper_items.push(item);
+      for (const item of this.tags) {
+        if (item.match(prefix) && usedItems.indexOf(item.tag.name) === -1) {
+          newWhisperItems.push(item.tag);
         }
-        if (new_whisper_items.length === this.whisperLimit) {
-          return;
+        if (newWhisperItems.length === this.whisperLimit) {
+          break;
         }
       }
     }
-    this.setWhispererItems(new_whisper_items);
+    this.setWhispererItems(newWhisperItems);
   }
 
   focusIn() {
@@ -56,9 +73,9 @@ export class WhispererInputComponent implements OnInit {
     this.focusTimer = setTimeout(() => this.whisperer = [], WhispererInputComponent.FOCUS_OUT_TIMER);
   }
 
-  moveActive( event: Event ) {
+  moveActive( event: Event, delta: number ) {
     event.preventDefault();
-    this.activeIndex++;
+    this.activeIndex += delta;
     this.activeIndex %= this.whisperer.length;
   }
 
@@ -67,7 +84,7 @@ export class WhispererInputComponent implements OnInit {
       return true;
     }
     event.preventDefault();
-    this.addValue(this.whisperer[this.activeIndex]);
+    this.addValue(this.whisperer[this.activeIndex].name);
     return false;
   }
 

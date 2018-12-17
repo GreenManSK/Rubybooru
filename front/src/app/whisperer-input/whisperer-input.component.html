@@ -7,14 +7,16 @@
          (change)="valueChange(input.value)"
          (focus)="focusIn()"
          (focusout)="focusOut()"
-         (keydown.Tab)="moveActive($event)"
+         (keydown.Tab)="moveActive($event, 1)"
          (keydown.enter)="addIndexValue($event)"
+         (keydown.ArrowUp)="moveActive($event, -1)"
+         (keydown.ArrowDown)="moveActive($event, 1)"
   >
   <ul class="whisperer tag-color">
     <li
       *ngFor="let item of whisperer; let i = index"
       (click)="addValue(item.name)"
-      [ngClass]="{active: i == activeIndex}"
+      [ngClass]="[i == activeIndex ? 'active' : '', item['type'].toLowerCase()]"
     >
       {{item.name}}
     </li>

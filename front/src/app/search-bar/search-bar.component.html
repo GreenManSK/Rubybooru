@@ -1,7 +1,12 @@
 <div class="search">
   <form>
     <label for="searchInput">Search</label>
-    <app-whisperer-input [id]="'searchInput'" [placeholder]="'kurosawa_ruby'" [items]="tags"></app-whisperer-input>
+    <app-whisperer-input
+      [id]="'searchInput'"
+      [placeholder]="'kurosawa_ruby'"
+      [items]="whisperTags"
+      [defaultValue]="defaultValue"
+    ></app-whisperer-input>
     <select id="searchOrder">
       <option>Newest</option>
       <option>Oldest</option>
