@@ -1,0 +1,22 @@
+<div>
+  <input #input
+         id="{{id}}"
+         placeholder="{{placeholder}}"
+         name="{{name}}"
+         (keyup)="valueChange(input.value)"
+         (change)="valueChange(input.value)"
+         (focus)="focusIn()"
+         (focusout)="focusOut()"
+         (keydown.Tab)="moveActive($event)"
+         (keydown.enter)="addIndexValue($event)"
+  >
+  <ul class="whisperer">
+    <li
+      *ngFor="let item of whisperer; let i = index"
+      (click)="addValue(item)"
+      [ngClass]="{active: i == activeIndex}"
+    >
+      {{item}}
+    </li>
+  </ul>
+</div>

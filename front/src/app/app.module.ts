@@ -14,6 +14,7 @@ import { ImageComponent } from './image/image/image.component';
 import { ImagePanelComponent } from './image/image-panel/image-panel.component';
 import { SearchImagesComponent } from './search/search-images/search-images.component';
 import { SearchTagsComponent } from './search/search-tags/search-tags.component';
+import { WhispererInputComponent } from './whisperer-input/whisperer-input.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SearchTagsComponent } from './search/search-tags/search-tags.component'
     ImagePanelComponent,
     SearchImagesComponent,
     SearchTagsComponent,
+    WhispererInputComponent,
   ],
   imports: [
     BrowserModule,

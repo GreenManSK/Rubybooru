@@ -1,0 +1,29 @@
+@import "../../styles/variables";
+
+div {
+  width: 100%;
+  position: relative;
+}
+
+.whisperer {
+  text-align: left;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  li {
+    text-align: left;
+    list-style: none;
+    background: @darkBg;
+    border: 1px solid @darkBg;
+    font-size: 1.1em;
+    padding: 0.1em .5em;
+    cursor: pointer;
+    &:hover, &:focus, &:active, &.active {
+      background: @backgroundColor;
+      color: #fff;
+    }
+  }
+}
