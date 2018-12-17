@@ -114,37 +114,6 @@ body {
       margin: 0;
       color: @lightPink;
 
-      &.copyright {
-        color: @copyrightColor;
-      }
-      &.artist {
-        color: @artistColor;
-      }
-      &.circle {
-        color: @circleColor;
-      }
-      &.character {
-        color: @characterColor;
-      }
-      &.meta {
-        color: @metaColor;
-      }
-      &.medium {
-        color: @mediumColor;
-      }
-      &.studio {
-        color: @studioColor;
-      }
-      &.style {
-        color: @styleColor;
-      }
-      &.source {
-        color: @sourceColor;
-      }
-      &.faults {
-        color: @faultsColor;
-      }
-
       fa-icon {
         vertical-align: middle;
         font-size: 1rem;
@@ -179,7 +148,7 @@ body {
       display: inline-block;
       margin: 0 1rem 2rem 1rem;
 
-      &>div {
+      & > div {
         display: inline-block;
       }
 
@@ -294,6 +263,39 @@ body {
         color: gray;
       }
     }
+  }
+}
+
+.tag-color {
+  .copyright {
+    color: @copyrightColor !important;
+  }
+  .artist {
+    color: @artistColor !important;
+  }
+  .circle {
+    color: @circleColor !important;
+  }
+  .character {
+    color: @characterColor !important;
+  }
+  .meta {
+    color: @metaColor !important;
+  }
+  .medium {
+    color: @mediumColor !important;
+  }
+  .studio {
+    color: @studioColor !important;
+  }
+  .style {
+    color: @styleColor !important;
+  }
+  .source {
+    color: @sourceColor !important;
+  }
+  .faults {
+    color: @faultsColor !important;
   }
 }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
+import { Tag } from "../entity/tag";
 
 @Component({
   selector: 'app-whisperer-input',
@@ -15,7 +16,7 @@ export class WhispererInputComponent implements OnInit {
   @Input() id = '';
   @Input() name = '';
   @Input() placeholder = '';
-  @Input() items: string[];
+  @Input() items: Tag[];
   @Input() whisperLimit = 10;
 
   whisperer = [];
@@ -26,10 +27,8 @@ export class WhispererInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.items = this.items.map(i => i.toLocaleLowerCase()).sort();
+    this.items = this.items.sort(( a, b ) => a.name.localeCompare(b.name));
   }
-
-  // TODO: Classes for items
 
   valueChange( value: string ): void {
     let usedItems = this.splitValues(value);
@@ -38,7 +37,7 @@ export class WhispererInputComponent implements OnInit {
     const new_whisper_items = [];
     if (prefix.length > 0) {
       for (const item of this.items) {
-        if (item.startsWith(prefix) && usedItems.indexOf(item) === -1) {
+        if (item.name.startsWith(prefix) && usedItems.indexOf(item.name) === -1) {
           new_whisper_items.push(item);
         }
         if (new_whisper_items.length === this.whisperLimit) {

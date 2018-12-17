@@ -10,13 +10,13 @@
          (keydown.Tab)="moveActive($event)"
          (keydown.enter)="addIndexValue($event)"
   >
-  <ul class="whisperer">
+  <ul class="whisperer tag-color">
     <li
       *ngFor="let item of whisperer; let i = index"
-      (click)="addValue(item)"
+      (click)="addValue(item.name)"
       [ngClass]="{active: i == activeIndex}"
     >
-      {{item}}
+      {{item.name}}
     </li>
   </ul>
 </div>

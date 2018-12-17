@@ -1,4 +1,4 @@
-<ul class="tags">
+<ul class="tags tag-color">
   <li *ngFor="let tag of sortTags(tags)" [class]="tag['type'].toLowerCase()">
     <a [routerLink]="['/1']" [queryParams]="{tags: tag.id + '_' + tag.name}">
       <fa-icon [icon]="faSquare"></fa-icon>
