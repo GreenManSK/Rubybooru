@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FoldersComponent } from './folders.component';
+import { WhispererInputComponent } from './whisperer-input.component';
 
-describe('FoldersComponent', () => {
-  let component: FoldersComponent;
-  let fixture: ComponentFixture<FoldersComponent>;
+describe('WhispererInputComponent', () => {
+  let component: WhispererInputComponent;
+  let fixture: ComponentFixture<WhispererInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FoldersComponent ]
+      declarations: [ WhispererInputComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FoldersComponent);
+    fixture = TestBed.createComponent(WhispererInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

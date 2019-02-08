@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { faAngleDoubleLeft, faAngleDoubleRight, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { Tag } from "./entities/tag";
+import { TagType } from "./entities/tag-type.enum";
+import { Image } from "./entities/image";
 
 @Component({
   selector: 'app-root',
@@ -7,28 +9,5 @@ import { faAngleDoubleLeft, faAngleDoubleRight, faQuestion } from '@fortawesome/
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'app';
-  faSquare = faQuestion;
-  faAngleDoubleLeft = faAngleDoubleLeft;
-  faAngleDoubleRight = faAngleDoubleRight;
-  tagTypes = [
-    'copyright',
-    'circle',
-    'character',
-    'meta',
-    'medium',
-    'studio',
-    'style',
-    'source',
-    'faults',
-    'general',
-    'general',
-    'general',
-    'general',
-    'general'
-  ];
 
-  arrayOne( n: number ): any[] {
-    return Array(n);
-  }
 }

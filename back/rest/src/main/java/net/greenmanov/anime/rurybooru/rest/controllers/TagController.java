@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rurybooru.rest.controllers;
 
 import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
+import net.greenmanov.anime.rurybooru.api.dto.TagDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagInfoDTO;
 import net.greenmanov.anime.rurybooru.api.enums.Order;
 import net.greenmanov.anime.rurybooru.api.facade.TagFacade;
@@ -44,26 +45,12 @@ public class TagController {
     }
 
     /**
-     * Return top tags for image search
-     *
-     * @param tags   Tag ids or {@code null}
-     * @param dirId  Dir id or {@code null}
-     * @param order  Order of images
-     * @param number Number of  tags
-     * @return List of TagInfoDTO
+     * Return all tags
+     * @return all tags
      */
-    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<TagInfoDTO> getTags(
-            @RequestParam(required = false) List<Long> tags,
-            @RequestParam(required = false) Long dirId,
-            @RequestParam(required = false) Order order,
-            Integer number
-    ) {
-        GetImagesDTO dto = new GetImagesDTO();
-        dto.setDir(dirId);
-        dto.setOrder(order == null ? Order.NEWEST : order);
-        dto.setTags(tags);
-        logger.debug("getTagInfoForGetImage({}, {})", dto, number);
-        return tagFacade.getTagInfoForGetImage(dto, number);
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<TagDTO> getTags() {
+        logger.debug("getTags()");
+        return tagFacade.getAll();
     }
 }

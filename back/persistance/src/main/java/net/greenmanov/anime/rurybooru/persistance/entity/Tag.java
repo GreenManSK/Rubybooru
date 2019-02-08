@@ -2,10 +2,13 @@ package net.greenmanov.anime.rurybooru.persistance.entity;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableSet;
 import net.greenmanov.iqdb.parsers.TagType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Tag entity
@@ -56,7 +59,6 @@ public class Tag {
     public void setType(TagType type) {
         this.type = type;
     }
-
 
     @Override
     public boolean equals(Object o) {

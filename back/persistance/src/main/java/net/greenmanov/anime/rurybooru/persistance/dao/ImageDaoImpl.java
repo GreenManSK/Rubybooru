@@ -46,30 +46,31 @@ public class ImageDaoImpl implements ImageDao {
     }
 
     /**
+     * Return list of images by provided ids
+     *
+     * @param ids List of image IDs
+     * @return List of found images
+     */
+    @Override
+    public List<Image> getByIds(List<Long> ids) {
+        return new JPAQuery<>(em).select(IMAGE).from(IMAGE).where(IMAGE.id.in(ids)).fetch();
+    }
+
+    /**
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
-     * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed
-     * @param dirId   ID of the dir that contains images or {@code null} if any dir is ok
+     * @param tagIds     List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId      ID of the dir that contains images or {@code null} if any dir is ok
      * @param sortColumn Specify column to sort by
-     * @param desc    Specify ordering of images for pagination, images are ordered by datetime added
-     * @param perPage Number of images per page - maximal number of images in list
-     * @param page    Number of page that should be returned (skips first {@code (page - 1) * perPage} images)
+     * @param desc       Specify ordering of images for pagination, images are ordered by datetime added
+     * @param perPage    Number of images per page - maximal number of images in list
+     * @param page       Number of page that should be returned (skips first {@code (page - 1) * perPage} images)
      * @return List of images
      */
     @Override
     public List<Image> getImages(List<Long> tagIds, Long dirId, ComparableExpressionBase sortColumn, boolean desc, Integer perPage,
                                  Integer page) {
-        JPAQuery<Image> query = new JPAQuery<>(em).select(IMAGE).from(IMAGE);
-
-        if (tagIds != null) {
-            for (Long t : tagIds) {
-                query.where(IMAGE.tags.any().id.eq(t));
-            }
-        }
-
-        if (dirId != null) {
-            query.where(IMAGE.parent.id.eq(dirId));
-        }
+        JPAQuery<Image> query = createImageFilterQuery(tagIds, dirId);
 
         if (perPage != null) {
             query.limit(perPage);
@@ -84,6 +85,43 @@ public class ImageDaoImpl implements ImageDao {
         }
 
         return query.fetch();
+    }
+
+    /**
+     * Retrieve number of images that satisfy provided parameters
+     *
+     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Number of images
+     */
+    @Override
+    public Long getImagesCount(List<Long> tagIds, Long dirId) {
+        JPAQuery<Image> query = createImageFilterQuery(tagIds, dirId);
+
+        return query.fetchCount();
+    }
+
+    /**
+     * Create query for filtering images
+     *
+     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Filtered query
+     */
+    private JPAQuery<Image> createImageFilterQuery(List<Long> tagIds, Long dirId) {
+        JPAQuery<Image> query = new JPAQuery<>(em).select(IMAGE).from(IMAGE);
+
+        if (tagIds != null) {
+            for (Long t : tagIds) {
+                query.where(IMAGE.tags.any().id.eq(t));
+            }
+        }
+
+        if (dirId != null) {
+            query.where(IMAGE.parent.id.eq(dirId));
+        }
+
+        return query;
     }
 
     /**

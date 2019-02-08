@@ -20,6 +20,13 @@ public interface ImageService {
     Image getById(long id);
 
     /**
+     * Find all images with provided IDs
+     * @param ids List of image ids
+     * @return List of iamges
+     */
+    List<Image> getByIds(List<Long> ids);
+
+    /**
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed
@@ -30,6 +37,15 @@ public interface ImageService {
      * @return List of images
      */
     List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page);
+
+    /**
+     * Retrieve number of images that satisfy provided parameters
+     *
+     * @param tagIds     List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId      ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Number of images
+     */
+    Long getImagesCount(List<Long> tagIds, Long dirId);
 
     /**
      * Stores new image

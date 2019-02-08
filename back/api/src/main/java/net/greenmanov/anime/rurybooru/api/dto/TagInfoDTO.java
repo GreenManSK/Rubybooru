@@ -9,19 +9,10 @@ import java.util.Objects;
  *
  * @author Lukáš Kurčík <lukas.kurcik@gmail.com>
  */
-public class TagInfoDTO {
-    private TagDTO tag;
+public class TagInfoDTO extends TagDTO {
     private Long count;
 
     public TagInfoDTO() {
-    }
-
-    public TagDTO getTag() {
-        return tag;
-    }
-
-    public void setTag(TagDTO tag) {
-        this.tag = tag;
     }
 
     public Long getCount() {
@@ -36,21 +27,24 @@ public class TagInfoDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TagInfoDTO)) return false;
+        if (!super.equals(o)) return false;
         TagInfoDTO that = (TagInfoDTO) o;
-        return Objects.equals(getTag(), that.getTag()) &&
-                Objects.equals(getCount(), that.getCount());
+        return Objects.equals(getCount(), that.getCount());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTag(), getCount());
+        return Objects.hash(super.hashCode(), getCount());
     }
+
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("tag", tag)
                 .add("count", count)
+                .add("id", getId())
+                .add("name", getName())
+                .add("type", getType())
                 .toString();
     }
 }

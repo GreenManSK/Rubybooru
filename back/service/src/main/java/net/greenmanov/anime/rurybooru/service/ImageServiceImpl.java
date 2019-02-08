@@ -34,6 +34,17 @@ public class ImageServiceImpl implements ImageService {
     }
 
     /**
+     * Find all images with provided IDs
+     *
+     * @param ids List of image ids
+     * @return List of iamges
+     */
+    @Override
+    public List<Image> getByIds(List<Long> ids) {
+        return imageDao.getByIds(ids);
+    }
+
+    /**
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed
@@ -46,6 +57,18 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page) {
         return imageDao.getImages(tagIds, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
+    }
+
+    /**
+     * Retrieve number of images that satisfy provided parameters
+     *
+     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @return Number of images
+     */
+    @Override
+    public Long getImagesCount(List<Long> tagIds, Long dirId) {
+        return imageDao.getImagesCount(tagIds, dirId);
     }
 
     private ComparableExpressionBase getSortColumn(Order order) {

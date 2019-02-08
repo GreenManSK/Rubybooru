@@ -52,4 +52,11 @@ public interface ImageFacade {
      * @return List of images satisfying DTO parameters
      */
     List<ImageDTO> getImages(GetImagesDTO getImagesDTO);
+
+    /**
+     * Return number of images based on parameters of DTO object
+     * @param getImagesDTO GetImagesDTO
+     * @return Number of images
+     */
+    Long getImagesCount(GetImagesDTO getImagesDTO);
 }

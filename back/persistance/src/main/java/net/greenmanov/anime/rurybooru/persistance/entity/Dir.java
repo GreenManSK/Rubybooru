@@ -1,6 +1,7 @@
 package net.greenmanov.anime.rurybooru.persistance.entity;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.collect.ImmutableMap;
 
 import javax.persistence.*;
 import java.util.*;
@@ -59,7 +60,7 @@ public class Dir {
     }
 
     public Map<String, Dir> getSubDirs() {
-        return subDirs;
+        return ImmutableMap.copyOf(subDirs);
     }
 
     public void addSubDir(Dir dir) {
@@ -73,7 +74,7 @@ public class Dir {
     }
 
     public Map<String, Image> getImages() {
-        return images;
+        return Collections.unmodifiableMap(images);
     }
 
     public void addImage(Image image) {
@@ -105,7 +106,7 @@ public class Dir {
         return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .add("name", name)
-                .add("parent", parent.getId())
+                .add("parent", parent != null ? parent.getId() : "null")
                 .add("images", images.keySet())
                 .add("subDirs", subDirs)
                 .toString();

@@ -1,0 +1,17 @@
+<div class="search">
+  <form #searchForm="ngForm" (ngSubmit)="onSubmit()">
+    <label for="searchInput">Search</label>
+    <app-whisperer-input
+      id="searchInput"
+      [placeholder]="'kurosawa_ruby'"
+      [items]="whisperTags"
+      [defaultValue]="defaultValue"
+    ></app-whisperer-input>
+    <select id="searchOrder" [(ngModel)]="order" name="order">
+      <option [value]="ORDER.NEWEST">Newest</option>
+      <option [value]="ORDER.OLDEST">Oldest</option>
+      <option [value]="ORDER.WIDTH">Width</option>
+      <option [value]="ORDER.HEIGHT">Height</option>
+    </select>
+  </form>
+</div>

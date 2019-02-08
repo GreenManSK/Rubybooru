@@ -89,4 +89,15 @@ public class ImageFacadeImpl implements ImageFacade {
         return mapper.mapTo(imageService.getImages(dto.getTags(), dto.getDir(), dto.getOrder(), dto.getPerPage(),
                 dto.getPage()), ImageDTO.class);
     }
+
+    /**
+     * Return number of images based on parameters of DTO object
+     *
+     * @param dto GetImagesDTO
+     * @return Number of images
+     */
+    @Override
+    public Long getImagesCount(GetImagesDTO dto) {
+        return imageService.getImagesCount(dto.getTags(), dto.getDir());
+    }
 }
