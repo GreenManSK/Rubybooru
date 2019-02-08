@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faAngleDoubleLeft, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleLeft, faAngleLeft, faAngleRight, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
+import { environment } from "../../../environments/environment";
 
 
 @Component({
@@ -9,17 +10,15 @@ import { faAngleDoubleLeft, faAngleLeft, faAngleRight } from "@fortawesome/free-
 })
 export class PaginationComponent implements OnInit {
 
-  public START_PAGES = 2;
-  public END_PAGES = 2;
-
   @Input() pages: number;
   @Input() actualPage: number;
-  @Input() size = 7;
+  @Input() size = environment.defaultPaginationSize;
   @Output() pageChange = new EventEmitter<number>();
 
   leftIcon = faAngleLeft;
   rightIcon = faAngleRight;
   firstIcon = faAngleDoubleLeft;
+  lastIcon = faAngleDoubleRight;
 
   ngOnInit() {
   }

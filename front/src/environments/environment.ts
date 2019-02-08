@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   restUrl: 'http://localhost:8080/rurybooru/rest/',
   imagesPerPage: 24,
-  whispererTagLimit: 10
+  whispererTagLimit: 10,
+  defaultPaginationSize: 7
 };
 
 /*

@@ -34,21 +34,28 @@ export class SearchImagesComponent implements OnInit {
   }
 
   onParamChange() {
+    if (this.filterChanged(this.urlParser.getTags())) {
+      this.imageApi.getImageCount(this.urlParser.getTags()).subscribe(count => {
+        this.pages = Math.ceil(count / ImageGalleryComponent.PER_PAGE);
+      });
+    }
+
     this.page = this.urlParser.getPage();
     this.tags = this.urlParser.getTags();
     this.order = this.urlParser.getOrder();
     this.imageApi.getImages(ImageGalleryComponent.PER_PAGE, this.page, this.tags, this.order).subscribe(images => {
       this.images = images;
-      if (images.length < ImageGalleryComponent.PER_PAGE) {
-        this.pages = this.page;
-      } else {
-        this.pages = this.page + 1;
-      }
     });
   }
 
   pageChange( page: number ) {
     this.urlParser.navigatePage(page);
+  }
+
+  filterChanged( tags: number[] ): boolean {
+    console.log(JSON.stringify(tags));
+    console.log(JSON.stringify(this.tags));
+    return JSON.stringify(tags) !== JSON.stringify(this.tags);
   }
 
 }
