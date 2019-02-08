@@ -4,6 +4,7 @@ import { Tag } from "../../entities/tag";
 import { WhispererTag } from "./whisperer-tag";
 import { TagListComponent } from "../tag-list/tag-list.component";
 import { TagType } from "../../entities/tag-type.enum";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-whisperer-input',
@@ -19,7 +20,7 @@ export class WhispererInputComponent implements OnInit {
   @Input() id = '';
   @Input() name = '';
   @Input() placeholder = '';
-  @Input() whisperLimit = 10;
+  @Input() whisperLimit = environment.whispererTagLimit;
 
   tags: WhispererTag[] = [];
   whisperer = [];
