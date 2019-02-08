@@ -25,4 +25,11 @@ public interface ImageFileService {
      * @param image Image entity
      */
     void open(Image image);
+
+    /**
+     * Check if file for image exists
+     * @param image Image entity
+     * @return True if file exists, false if not
+     */
+    boolean imageFileExists(Image image);
 }

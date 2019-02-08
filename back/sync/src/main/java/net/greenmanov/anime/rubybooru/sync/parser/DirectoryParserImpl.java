@@ -7,7 +7,9 @@ import net.greenmanov.anime.ImageSorter.json.JsonDatabase;
 import net.greenmanov.anime.rurybooru.persistance.entity.Dir;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
+import net.greenmanov.anime.rurybooru.persistance.utils.DirUtils;
 import net.greenmanov.anime.rurybooru.service.DirService;
+import net.greenmanov.anime.rurybooru.service.ImageFileService;
 import net.greenmanov.anime.rurybooru.service.ImageService;
 import net.greenmanov.anime.rurybooru.service.TagService;
 import net.greenmanov.iqdb.parsers.TagType;
@@ -45,6 +47,9 @@ public class DirectoryParserImpl implements DirectoryParser {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private ImageFileService imageFileService;
 
     private BiMap<Long, Tag> tags;
 
@@ -137,6 +142,7 @@ public class DirectoryParserImpl implements DirectoryParser {
      */
     private void saveImage(net.greenmanov.anime.ImageSorter.helpers.Image img, Dir dir, boolean dataUpdate) {
         Image imageEntity = dir.getImages().getOrDefault(img.getName(), null);
+
         if (imageEntity != null && dataUpdate) {
             updateImageEntity(imageEntity, img);
             updateTags(imageEntity, img);
@@ -145,6 +151,10 @@ public class DirectoryParserImpl implements DirectoryParser {
             dir.addImage(imageEntity);
             updateImageEntity(imageEntity, img);
             updateTags(imageEntity, img);
+            if (!imageFileService.imageFileExists(imageEntity)) {
+                dir.removeImage(imageEntity);
+                return;
+            }
             imageService.create(imageEntity);
         }
     }

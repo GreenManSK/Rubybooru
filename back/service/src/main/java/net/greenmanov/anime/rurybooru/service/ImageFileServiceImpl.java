@@ -71,6 +71,18 @@ public class ImageFileServiceImpl implements ImageFileService {
     }
 
     /**
+     * Check if file for image exists
+     *
+     * @param image Image entity
+     * @return True if file exists, false if not
+     */
+    @Override
+    public boolean imageFileExists(Image image) {
+        Path path = Paths.get(config.getGalleryPath() + DirUtils.getPath(image));
+        return path.toFile().exists();
+    }
+
+    /**
      * Resize image
      */
     private BufferedImage resize(BufferedImage image, Integer width, Integer height) {
