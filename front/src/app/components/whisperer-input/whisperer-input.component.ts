@@ -5,6 +5,7 @@ import { WhispererTag } from "./whisperer-tag";
 import { TagListComponent } from "../tag-list/tag-list.component";
 import { TagType } from "../../entities/tag-type.enum";
 import { environment } from "../../../environments/environment";
+import { TagService } from "../../services/tag/tag.service";
 
 @Component({
   selector: 'app-whisperer-input',
@@ -27,7 +28,7 @@ export class WhispererInputComponent implements OnInit {
   focusTimer = 0;
   activeIndex = -1;
 
-  constructor( private rd: Renderer2 ) {
+  constructor( private rd: Renderer2, private tagService: TagService ) {
   }
 
   ngOnInit() {
@@ -35,12 +36,7 @@ export class WhispererInputComponent implements OnInit {
 
   @Input()
   set items( items: Tag[] ) {
-    this.tags = items.sort(( a, b ) => {
-      if (a.type === b.type) {
-        return a.name.localeCompare(b.name);
-      }
-      return TagListComponent.typesSort.indexOf(TagType[a.type]) < TagListComponent.typesSort.indexOf(TagType[b.type]) ? -1 : 1;
-    }).map(i => new WhispererTag(i));
+    this.tags = this.tagService.sortTags(items).map(i => new WhispererTag(i));
   }
 
   @Input()
