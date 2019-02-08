@@ -1,4 +1,4 @@
-package net.greenmanov.anime.rubybooru.sync.parser;
+package net.greenmanov.anime.rubybooru.scripts.parser;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -7,12 +7,10 @@ import net.greenmanov.anime.ImageSorter.json.JsonDatabase;
 import net.greenmanov.anime.rurybooru.persistance.entity.Dir;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
-import net.greenmanov.anime.rurybooru.persistance.utils.DirUtils;
 import net.greenmanov.anime.rurybooru.service.DirService;
 import net.greenmanov.anime.rurybooru.service.ImageFileService;
 import net.greenmanov.anime.rurybooru.service.ImageService;
 import net.greenmanov.anime.rurybooru.service.TagService;
-import net.greenmanov.iqdb.parsers.TagType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

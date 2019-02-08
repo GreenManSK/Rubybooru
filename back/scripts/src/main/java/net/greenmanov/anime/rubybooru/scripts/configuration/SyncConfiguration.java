@@ -1,6 +1,6 @@
-package net.greenmanov.anime.rubybooru.sync.configuration;
+package net.greenmanov.anime.rubybooru.scripts.configuration;
 
-import net.greenmanov.anime.rubybooru.sync.Main;
+import net.greenmanov.anime.rubybooru.scripts.Main;
 import net.greenmanov.anime.rurybooru.persistance.RubybooruApplicationContext;
 import net.greenmanov.anime.rurybooru.service.DirService;
 import org.springframework.context.annotation.ComponentScan;

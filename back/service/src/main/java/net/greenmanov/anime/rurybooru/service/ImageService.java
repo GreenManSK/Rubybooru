@@ -27,6 +27,13 @@ public interface ImageService {
     List<Image> getByIds(List<Long> ids);
 
     /**
+     * Find all images
+     *
+     * @return List of all images
+     */
+    List<Image> getAll();
+
+    /**
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed

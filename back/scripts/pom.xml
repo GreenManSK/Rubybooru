@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sync</artifactId>
+    <artifactId>scripts</artifactId>
 
     <build>
         <plugins>
@@ -17,7 +17,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>net.greenmanov.anime.rubybooru.sync.Main</mainClass>
+                    <mainClass>net.greenmanov.anime.rubybooru.scripts.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

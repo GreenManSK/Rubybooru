@@ -1,4 +1,4 @@
-package net.greenmanov.anime.rubybooru.sync.parser;
+package net.greenmanov.anime.rubybooru.scripts.parser;
 
 import java.nio.file.Path;
 
