@@ -46,6 +46,17 @@ public class ImageDaoImpl implements ImageDao {
     }
 
     /**
+     * Return list of images by provided ids
+     *
+     * @param ids List of image IDs
+     * @return List of found images
+     */
+    @Override
+    public List<Image> getByIds(List<Long> ids) {
+        return new JPAQuery<>(em).select(IMAGE).from(IMAGE).where(IMAGE.id.in(ids)).fetch();
+    }
+
+    /**
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds     List of tag IDs that image have to have or {@code null} if tag filtering is not needed

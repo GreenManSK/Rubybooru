@@ -29,6 +29,13 @@ public interface ImageDao {
     List<Image> getAll();
 
     /**
+     * Return list of images by provided ids
+     * @param ids List of image IDs
+     * @return List of found images
+     */
+    List<Image> getByIds(List<Long> ids);
+
+    /**
      * Get all images with provided tag
      *
      * @param tag Image tag

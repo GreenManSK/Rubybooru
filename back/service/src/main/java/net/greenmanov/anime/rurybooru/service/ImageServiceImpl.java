@@ -34,6 +34,17 @@ public class ImageServiceImpl implements ImageService {
     }
 
     /**
+     * Find all images with provided IDs
+     *
+     * @param ids List of image ids
+     * @return List of iamges
+     */
+    @Override
+    public List<Image> getByIds(List<Long> ids) {
+        return imageDao.getByIds(ids);
+    }
+
+    /**
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed

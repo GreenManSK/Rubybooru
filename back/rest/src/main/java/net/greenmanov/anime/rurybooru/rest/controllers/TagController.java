@@ -45,30 +45,6 @@ public class TagController {
     }
 
     /**
-     * Return top tags for image search
-     *
-     * @param tags   Tag ids or {@code null}
-     * @param dirId  Dir id or {@code null}
-     * @param order  Order of images
-     * @param number Number of  tags
-     * @return List of TagInfoDTO
-     */
-    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<TagInfoDTO> getTags(
-            @RequestParam(required = false) List<Long> tags,
-            @RequestParam(required = false) Long dirId,
-            @RequestParam(required = false) Order order,
-            Integer number
-    ) {
-        GetImagesDTO dto = new GetImagesDTO();
-        dto.setDir(dirId);
-        dto.setOrder(order == null ? Order.NEWEST : order);
-        dto.setTags(tags);
-        logger.debug("getTagInfoForGetImage({}, {})", dto, number);
-        return tagFacade.getTagInfoForGetImage(dto, number);
-    }
-
-    /**
      * Return all tags
      * @return all tags
      */

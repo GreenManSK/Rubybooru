@@ -1,10 +1,10 @@
 package net.greenmanov.anime.rurybooru.api.facade;
 
-import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagInfoDTO;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class TagFacade
@@ -34,10 +34,9 @@ public interface TagFacade {
     TagInfoDTO getTagInfo(long id);
 
     /**
-     * Return tag info for first n most popular tags of images fitting getImageDTO
-     * @param getImagesDTO GetImageDTO
-     * @param n Number of tags
-     * @return List of TagInfoDTO for first n or less most popular tags
+     * Return setf all tags for images
+     * @param imageIds List of image ids
+     * @return Set of TagInfoDTOs
      */
-    List<TagInfoDTO> getTagInfoForGetImage(GetImagesDTO getImagesDTO, int n);
+    Set<TagInfoDTO> getTagInfoForImages(List<Long> imageIds);
 }

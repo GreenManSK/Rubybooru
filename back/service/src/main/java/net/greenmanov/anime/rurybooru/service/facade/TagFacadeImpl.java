@@ -1,10 +1,5 @@
 package net.greenmanov.anime.rurybooru.service.facade;
 
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multisets;
-import com.google.common.collect.TreeMultiset;
-import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagDTO;
 import net.greenmanov.anime.rurybooru.api.dto.TagInfoDTO;
 import net.greenmanov.anime.rurybooru.api.facade.TagFacade;
@@ -18,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -71,32 +68,37 @@ public class TagFacadeImpl implements TagFacade {
     @Override
     public TagInfoDTO getTagInfo(long id) {
         Tag tag = tagService.getById(id);
+        return tagToTagInfoDTO(tag);
+    }
+
+    /**
+     * Return set of all tags for images
+     *
+     * @param imageIds List of image ids
+     * @return Set of TagInfoDTOs
+     */
+    @Override
+    public Set<TagInfoDTO> getTagInfoForImages(List<Long> imageIds) {
+        List<Image> images = imageService.getByIds(imageIds);
+        Set<Tag> tags = new HashSet<>();
+        for (Image i : images) {
+            tags.addAll(i.getTags());
+        }
+        return tags.stream().map(this::tagToTagInfoDTO).collect(Collectors.toSet());
+    }
+
+    /**
+     * Transforms tag entity to TagInfoDTO
+     *
+     * @param tag Tag entity
+     * @return TagInfoDTO with all needed data
+     */
+    private TagInfoDTO tagToTagInfoDTO(Tag tag) {
         long count = tagService.getTagUseCount(tag);
 
         TagInfoDTO info = mapper.mapTo(tag, TagInfoDTO.class);
         info.setCount(count);
 
         return info;
-    }
-
-    /**
-     * Return tag info for first n most popular tags of images fitting getImageDTO
-     *
-     * @param dto GetImageDTO
-     * @param n   Number of tags
-     * @return List of TagInfoDTO for first n or less most popular tags
-     */
-    @Override
-    public List<TagInfoDTO> getTagInfoForGetImage(GetImagesDTO dto, int n) {
-        List<Image> images = imageService.getImages(dto.getTags(), dto.getDir(), dto.getOrder(), MAX_IMAGES_PER_PAGE, 1);
-        Multiset<Tag> tags = HashMultiset.create();
-        for (Image image : images) {
-            tags.addAll(image.getTags());
-        }
-        return Multisets.copyHighestCountFirst(tags).stream().limit(n).map(tag -> {
-            TagInfoDTO info = mapper.mapTo(tag, TagInfoDTO.class);
-            info.setCount(tagService.getTagUseCount(tag));
-            return info;
-        }).collect(Collectors.toList());
     }
 }
