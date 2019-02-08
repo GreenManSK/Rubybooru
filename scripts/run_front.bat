@@ -1,4 +1,4 @@
 @echo off
-cd ../
-cd front/
-ng serve
+cd /D %~dp0\..\
+cd front\
+ng serve --open

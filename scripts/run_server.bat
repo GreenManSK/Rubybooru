@@ -1,4 +1,4 @@
 @echo off
-cd ../
-cd back/rest
+cd /D %~dp0\..\
+cd back\rest
 mvn tomcat7:run

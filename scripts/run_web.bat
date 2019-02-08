@@ -1,2 +1,2 @@
 @echo off
-START /B run_front.bat & START /B run_server.bat
+START /B %~dp0\run_front.bat & START /B %~dp0\run_server.bat
