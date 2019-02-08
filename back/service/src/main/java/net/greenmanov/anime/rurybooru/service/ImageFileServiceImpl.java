@@ -48,6 +48,8 @@ public class ImageFileServiceImpl implements ImageFileService {
                 ImageIO.write(resized, "jpg", tmpFilePath.toFile());
             } catch (IOException e) {
                 logger.error("Couldn't resize image {}", imagePath, e);
+            } catch (IllegalArgumentException e) {
+                logger.error("Problem with image {}", imagePath, e);
             }
         }
         return file;
