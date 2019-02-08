@@ -6,6 +6,7 @@ import { TagApiService } from "../../../services/tag-api/tag-api.service";
 import { TagType } from "../../../entities/tag-type.enum";
 import { UrlParserService } from "../url-parser.service";
 import { ImageOrder } from "../image-order.enum";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-search-tags',
@@ -14,7 +15,7 @@ import { ImageOrder } from "../image-order.enum";
 })
 export class SearchTagsComponent implements OnInit {
 
-  private static TAGS_FROM_PAGES = 30;
+  private static TAGS_FROM_PAGES = environment.imagesForMenuTags;
   private MAX_TAGS_SHOWN = {};
 
   public tags: Tag[] = [];
