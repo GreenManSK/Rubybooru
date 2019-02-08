@@ -15,6 +15,7 @@ import { ImagePanelComponent } from './views/image/image-panel/image-panel.compo
 import { SearchImagesComponent } from './views/search/search-images/search-images.component';
 import { SearchTagsComponent } from './views/search/search-tags/search-tags.component';
 import { WhispererInputComponent } from './components/whisperer-input/whisperer-input.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { WhispererInputComponent } from './components/whisperer-input/whisperer-
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     FontAwesomeModule,
     AppRoutingModule,
     HttpClientModule

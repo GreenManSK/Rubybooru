@@ -44,6 +44,10 @@ export class WhispererInputComponent implements OnInit {
     this.inputElement.nativeElement.value = value;
   }
 
+  public getValues(): string[] {
+    return this.splitValues(this.inputElement.nativeElement.value);
+  }
+
   valueChange( value: string ): void {
     let usedItems = this.splitValues(value);
     usedItems = usedItems.map(i => i.toLocaleLowerCase());

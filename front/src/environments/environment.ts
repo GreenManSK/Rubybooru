@@ -6,11 +6,19 @@ import { TagType } from "../app/entities/tag-type.enum";
 
 export const environment = {
   production: false,
+  // API Url
   restUrl: 'http://localhost:8080/rurybooru/rest/',
+
+  // Image counts
   imagesPerPage: 24,
   imagesForMenuTags: 24,
-  whispererTagLimit: 10,
   defaultPaginationSize: 7,
+
+  // Whisperer settings
+  whispererTagLimit: 10,
+  whispererUsedTags: [TagType.COPYRIGHT, TagType.CHARACTER, TagType.ARTIST, TagType.GENERAL],
+
+  // Tag sorting
   tagTypeOrder: [
     TagType.COPYRIGHT,
     TagType.CHARACTER,
