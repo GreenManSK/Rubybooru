@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Tag } from "../entity/tag";
+import { Tag } from "../../entities/tag";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { TagType } from "../entity/tag-type.enum";
+import { TagType } from "../../entities/tag-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
-import { UrlParserService } from "../search/url-parser.service";
-import { t } from "../../../node_modules/@angular/core/src/render3";
+import { UrlParserService } from "../../views/search/url-parser.service";
+import { t } from "../../../../node_modules/@angular/core/src/render3/index";
 
 @Component({
   selector: 'app-tag-list',

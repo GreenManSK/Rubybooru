@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { RestAPIService } from "./rest-api.service";
+import { RestAPIService } from "../rest-api/rest-api.service";
 import { Observable } from "rxjs";
-import { Image } from "../entity/image";
+import { Image } from "../../entities/image";
 import { catchError } from "rxjs/operators";
-import { HttpClient, HttpHeaders, HttpParams } from "../../../node_modules/@angular/common/http";
-import { ImageOrder } from "../search/image-order.enum";
+import { HttpClient, HttpHeaders, HttpParams } from "../../../../node_modules/@angular/common/http";
+import { ImageOrder } from "../../views/search/image-order.enum";
 
 
 @Injectable({

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ImageComponent } from "./image/image/image.component";
-import { TagListComponent } from "./tag-list/tag-list.component";
-import { ImagePanelComponent } from "./image/image-panel/image-panel.component";
-import { SearchImagesComponent } from "./search/search-images/search-images.component";
-import { SearchTagsComponent } from "./search/search-tags/search-tags.component";
+import { ImageComponent } from "../../views/image/image/image.component";
+import { TagListComponent } from "../../components/tag-list/tag-list.component";
+import { ImagePanelComponent } from "../../views/image/image-panel/image-panel.component";
+import { SearchImagesComponent } from "../../views/search/search-images/search-images.component";
+import { SearchTagsComponent } from "../../views/search/search-tags/search-tags.component";
 
 const routes: Routes = [
   {

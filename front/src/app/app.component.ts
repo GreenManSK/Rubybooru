@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Tag } from "./entity/tag";
-import { TagType } from "./entity/tag-type.enum";
-import { Image } from "./entity/image";
+import { Tag } from "./entities/tag";
+import { TagType } from "./entities/tag-type.enum";
+import { Image } from "./entities/image";
 
 @Component({
   selector: 'app-root',

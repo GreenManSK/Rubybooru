@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageApiService } from "../../service/image-api.service";
-import { Image } from "../../entity/image";
-import { ImageGalleryComponent } from "../../image-gallery/image-gallery.component";
+import { ImageApiService } from "../../../services/image-api/image-api.service";
+import { Image } from "../../../entities/image";
+import { ImageGalleryComponent } from "../../../components/image-gallery/image-gallery.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UrlParserService } from "../url-parser.service";
 import { ImageOrder } from "../image-order.enum";

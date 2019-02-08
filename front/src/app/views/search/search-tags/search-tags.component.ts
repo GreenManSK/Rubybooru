@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Tag } from "../../entity/tag";
+import { Tag } from "../../../entities/tag";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ImageApiService } from "../../service/image-api.service";
-import { TagApiService } from "../../service/tag-api.service";
-import { TagType } from "../../entity/tag-type.enum";
+import { ImageApiService } from "../../../services/image-api/image-api.service";
+import { TagApiService } from "../../../services/tag-api/tag-api.service";
+import { TagType } from "../../../entities/tag-type.enum";
 import { UrlParserService } from "../url-parser.service";
 import { ImageOrder } from "../image-order.enum";
 

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ElementRef, Renderer2 } from '@angular/core';
-import { Tag } from "../entity/tag";
+import { Tag } from "../../entities/tag";
 import { WhispererTag } from "./whisperer-tag";
 import { TagListComponent } from "../tag-list/tag-list.component";
-import { TagType } from "../entity/tag-type.enum";
+import { TagType } from "../../entities/tag-type.enum";
 
 @Component({
   selector: 'app-whisperer-input',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { Image } from "../../entity/image";
-import { ImageApiService } from "../../service/image-api.service";
+import { Image } from "../../../entities/image";
+import { ImageApiService } from "../../../services/image-api/image-api.service";
 
 @Component({
   selector: 'app-image',

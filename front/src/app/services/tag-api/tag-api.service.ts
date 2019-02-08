@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RestAPIService } from "./rest-api.service";
-import { HttpClient } from "../../../node_modules/@angular/common/http";
+import { RestAPIService } from "../rest-api/rest-api.service";
+import { HttpClient } from "../../../../node_modules/@angular/common/http";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Tag } from "../entity/tag";
+import { Tag } from "../../entities/tag";
 
 @Injectable({
   providedIn: 'root'

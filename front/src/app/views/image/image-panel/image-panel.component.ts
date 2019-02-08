@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Image } from "../../entity/image";
+import { Image } from "../../../entities/image";
 import { ActivatedRoute } from "@angular/router";
-import { Tag } from "../../entity/tag";
-import { ImageApiService } from "../../service/image-api.service";
-import { TagApiService } from "../../service/tag-api.service";
+import { Tag } from "../../../entities/tag";
+import { ImageApiService } from "../../../services/image-api/image-api.service";
+import { TagApiService } from "../../../services/tag-api/tag-api.service";
 
 @Component({
   selector: 'app-image-panel',

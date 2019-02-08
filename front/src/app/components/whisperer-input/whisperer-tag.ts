@@ -1,4 +1,4 @@
-import { Tag } from "../entity/tag";
+import { Tag } from "../../entities/tag";
 
 export class WhispererTag {
   tag: Tag;

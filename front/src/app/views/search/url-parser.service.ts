@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ImageOrder } from "./image-order.enum";
-import { Tag } from "../entity/tag";
+import { Tag } from "../../entities/tag";
 
 @Injectable({
   providedIn: 'root'

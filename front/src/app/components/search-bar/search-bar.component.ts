@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TagApiService } from "../service/tag-api.service";
-import { TagType } from "../entity/tag-type.enum";
+import { TagApiService } from "../../services/tag-api/tag-api.service";
+import { TagType } from "../../entities/tag-type.enum";
 import { ActivatedRoute, Router } from "@angular/router";
-import { UrlParserService } from "../search/url-parser.service";
+import { UrlParserService } from "../../views/search/url-parser.service";
 
 @Component({
   selector: 'app-search-bar',
