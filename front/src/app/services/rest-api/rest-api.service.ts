@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from "rxjs";
+import { environment } from "../../../environments/environment";
 
 
 export abstract class RestAPIService {
 
-  protected _URL = 'http://localhost:8080/rurybooru/rest/';
+  protected _URL = environment.restUrl;
 
   constructor( public http: HttpClient ) {
   }

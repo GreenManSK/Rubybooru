@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Image } from "../../entities/image";
 import { ImageApiService } from "../../services/image-api/image-api.service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-image-gallery',
@@ -9,7 +10,7 @@ import { ImageApiService } from "../../services/image-api/image-api.service";
 })
 export class ImageGalleryComponent implements OnInit {
 
-  public static PER_PAGE = 24;
+  public static PER_PAGE = environment.imagesPerPage;
   @Input() images: Image[] = [];
   public TMP_WIDTH = 350;
   public TMP_HEIGHT = 180;

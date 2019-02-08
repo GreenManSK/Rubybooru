@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.test`.
 
 export const environment = {
-  production: false
+  production: false,
+  restUrl: 'http://localhost:8080/rurybooru/rest/',
+  imagesPerPage: 24
 };
 
 /*
