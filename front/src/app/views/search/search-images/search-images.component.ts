@@ -53,8 +53,6 @@ export class SearchImagesComponent implements OnInit {
   }
 
   filterChanged( tags: number[] ): boolean {
-    console.log(JSON.stringify(tags));
-    console.log(JSON.stringify(this.tags));
     return JSON.stringify(tags) !== JSON.stringify(this.tags);
   }
 
