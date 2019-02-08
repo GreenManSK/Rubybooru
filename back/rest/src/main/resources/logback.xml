@@ -7,7 +7,7 @@
         </encoder>
     </appender>
     <!-- default logging level -->
-    <root level="all">
+    <root level="info">
         <!-- reference to the used appender -->
         <appender-ref ref="APP"/>
     </root>
