@@ -1,9 +1,6 @@
 package net.greenmanov.anime.rurybooru.service.helper;
 
-import net.greenmanov.anime.rurybooru.persistance.filters.FilterOperator;
-import net.greenmanov.anime.rurybooru.persistance.filters.ImageFilter;
-import net.greenmanov.anime.rurybooru.persistance.filters.ImageRatioFilter;
-import net.greenmanov.anime.rurybooru.persistance.filters.ImageWidthFilter;
+import net.greenmanov.anime.rurybooru.persistance.filters.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +97,7 @@ final public class FilterDecoder {
     private static ImageFilter decodeHeight(String string) {
         Matcher m = HEIGHT_PATTERN.matcher(string);
         if (m.find()) {
-            return new ImageWidthFilter(Integer.valueOf(m.group(2)), FilterOperator.fromString(m.group(1)));
+            return new ImageHeightFilter(Integer.valueOf(m.group(2)), FilterOperator.fromString(m.group(1)));
         }
         return null;
     }
