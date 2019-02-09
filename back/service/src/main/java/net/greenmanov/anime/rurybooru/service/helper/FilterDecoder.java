@@ -29,7 +29,7 @@ final public class FilterDecoder {
 
     private final static Pattern WIDTH_PATTERN = Pattern.compile("^w(?:idth)?:(=?|<|>|<=|>=)(\\d+)");
     private final static Pattern HEIGHT_PATTERN = Pattern.compile("^h(?:eight)?:(=?|<|>|<=|>=)(\\d+)");
-    private final static Pattern RATIO_PATTERN = Pattern.compile("^r(?:atio)?:(\\d+):(\\d+)(?::(\\d+\\.?\\d*))?");
+    private final static Pattern RATIO_PATTERN = Pattern.compile("^r(?:atio)?:(\\d+)(?:::(\\d+))(?::(\\d+\\.?\\d*))?");
 
     private FilterDecoder() {
     }
@@ -76,7 +76,10 @@ final public class FilterDecoder {
         Matcher m = RATIO_PATTERN.matcher(string);
         if (m.find()) {
             int width = Integer.valueOf(m.group(1));
-            int height = Integer.valueOf(m.group(2));
+            int height = 1;
+            if (m.group(2) != null) {
+                height = Integer.valueOf(m.group(2));
+            }
             double delta = 0;
             if (m.group(3) != null) {
                 delta = Double.valueOf(m.group(3));
