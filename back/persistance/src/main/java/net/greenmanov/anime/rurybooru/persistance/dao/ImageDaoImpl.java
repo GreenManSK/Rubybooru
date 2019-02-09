@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
 import net.greenmanov.anime.rurybooru.persistance.entity.Tag;
+import net.greenmanov.anime.rurybooru.persistance.filters.ImageFilter;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -60,6 +61,7 @@ public class ImageDaoImpl implements ImageDao {
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds     List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param filters    Image filters
      * @param dirId      ID of the dir that contains images or {@code null} if any dir is ok
      * @param sortColumn Specify column to sort by
      * @param desc       Specify ordering of images for pagination, images are ordered by datetime added
@@ -68,9 +70,15 @@ public class ImageDaoImpl implements ImageDao {
      * @return List of images
      */
     @Override
-    public List<Image> getImages(List<Long> tagIds, Long dirId, ComparableExpressionBase sortColumn, boolean desc, Integer perPage,
-                                 Integer page) {
-        JPAQuery<Image> query = createImageFilterQuery(tagIds, dirId);
+    public List<Image> getImages(
+            List<Long> tagIds,
+            List<ImageFilter> filters,
+            Long dirId,
+            ComparableExpressionBase sortColumn,
+            boolean desc,
+            Integer perPage,
+            Integer page) {
+        JPAQuery<Image> query = createImageFilterQuery(tagIds, filters, dirId);
 
         if (perPage != null) {
             query.limit(perPage);
@@ -90,13 +98,16 @@ public class ImageDaoImpl implements ImageDao {
     /**
      * Retrieve number of images that satisfy provided parameters
      *
-     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
-     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param filters Image filters
+     * @param dirId   ID of the dir that contains images or {@code null} if any dir is ok
      * @return Number of images
      */
     @Override
-    public Long getImagesCount(List<Long> tagIds, Long dirId) {
-        JPAQuery<Image> query = createImageFilterQuery(tagIds, dirId);
+    public Long getImagesCount(List<Long> tagIds,
+                               List<ImageFilter> filters,
+                               Long dirId) {
+        JPAQuery<Image> query = createImageFilterQuery(tagIds, filters, dirId);
 
         return query.fetchCount();
     }
@@ -104,12 +115,19 @@ public class ImageDaoImpl implements ImageDao {
     /**
      * Create query for filtering images
      *
-     * @param tagIds List of tag IDs that image have to have or {@code null} if tag filtering is not needed
-     * @param dirId  ID of the dir that contains images or {@code null} if any dir is ok
+     * @param tagIds  List of tag IDs that image have to have or {@code null} if tag filtering is not needed
+     * @param filters Image filters
+     * @param dirId   ID of the dir that contains images or {@code null} if any dir is ok
      * @return Filtered query
      */
-    private JPAQuery<Image> createImageFilterQuery(List<Long> tagIds, Long dirId) {
+    private JPAQuery<Image> createImageFilterQuery(List<Long> tagIds, List<ImageFilter> filters, Long dirId) {
         JPAQuery<Image> query = new JPAQuery<>(em).select(IMAGE).from(IMAGE);
+
+        if (filters != null) {
+            for (ImageFilter filter : filters) {
+                query = filter.apply(query);
+            }
+        }
 
         if (tagIds != null) {
             for (Long t : tagIds) {

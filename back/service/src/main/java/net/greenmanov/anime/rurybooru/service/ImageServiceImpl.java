@@ -66,7 +66,7 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page) {
-        return imageDao.getImages(tagIds, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
+        return imageDao.getImages(tagIds, null, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
     }
 
     /**
@@ -78,7 +78,7 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public Long getImagesCount(List<Long> tagIds, Long dirId) {
-        return imageDao.getImagesCount(tagIds, dirId);
+        return imageDao.getImagesCount(tagIds, null, dirId);
     }
 
     private ComparableExpressionBase getSortColumn(Order order) {

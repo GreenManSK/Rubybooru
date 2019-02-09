@@ -96,24 +96,24 @@ public class ImageDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetImagesPagination() {
-        List<Image> images = imageDao.getImages(null, null, IMAGE.date, false, 1, 2);
+        List<Image> images = imageDao.getImages(null, null,null, IMAGE.date, false, 1, 2);
         assertEquals(1, images.size());
         assertTrue(images.contains(img2));
 
-        images = imageDao.getImages(null, null, IMAGE.date, false, 2, 1);
+        images = imageDao.getImages(null, null,null, IMAGE.date, false, 2, 1);
         assertEquals(2, images.size());
         assertTrue(images.contains(img1));
         assertTrue(images.contains(img2));
 
-        images = imageDao.getImages(null, null, IMAGE.date, false, 2, 2);
+        images = imageDao.getImages(null, null,null, IMAGE.date, false, 2, 2);
         assertEquals(1, images.size());
         assertTrue(images.contains(img3));
     }
 
     @Test
     public void testGetImagesOrder() {
-        List<Image> asc = imageDao.getImages(null, null, IMAGE.date, false, 20, 1);
-        List<Image> desc = imageDao.getImages(null, null, IMAGE.date, true, 20, 1);
+        List<Image> asc = imageDao.getImages(null, null,null, IMAGE.date, false, 20, 1);
+        List<Image> desc = imageDao.getImages(null, null,null, IMAGE.date, true, 20, 1);
         assertEquals(3, asc.size());
         assertEquals(3, desc.size());
 
@@ -122,27 +122,27 @@ public class ImageDaoImplTest extends AbstractTestNGSpringContextTests {
         }
 
 
-        desc = imageDao.getImages(null, null, IMAGE.date, true, 1, 3);
+        desc = imageDao.getImages(null, null,null, IMAGE.date, true, 1, 3);
         assertEquals(1, desc.size());
         assertTrue(desc.contains(img1));
     }
 
     @Test
     public void testGetImagesFilters() {
-        List<Image> images = imageDao.getImages(null, dir.getId() + 1, IMAGE.date, false, 20, 1);
+        List<Image> images = imageDao.getImages(null,null, dir.getId() + 1, IMAGE.date, false, 20, 1);
         assertTrue(images.isEmpty());
 
-        images = imageDao.getImages(null, dir.getId(), IMAGE.date, false, 20, 1);
+        images = imageDao.getImages(null,null, dir.getId(), IMAGE.date, false, 20, 1);
         assertEquals(3, images.size());
         assertTrue(images.contains(img1));
         assertTrue(images.contains(img2));
         assertTrue(images.contains(img3));
 
-        images = imageDao.getImages(Arrays.asList(tag1.getId(), tag2.getId()), null, IMAGE.date, false, 20, 1);
+        images = imageDao.getImages(Arrays.asList(tag1.getId(), tag2.getId()), null,null, IMAGE.date, false, 20, 1);
         assertEquals(1, images.size());
         assertTrue(images.contains(img2));
 
-        images = imageDao.getImages(Arrays.asList(tag1.getId()), null, IMAGE.date, false, 20, 1);
+        images = imageDao.getImages(Arrays.asList(tag1.getId()), null,null, IMAGE.date, false, 20, 1);
         assertEquals(2, images.size());
         assertTrue(images.contains(img1));
         assertTrue(images.contains(img2));
