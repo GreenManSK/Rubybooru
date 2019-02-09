@@ -1,6 +1,9 @@
 package net.greenmanov.anime.rurybooru.persistance.filters;
 
+import com.querydsl.core.types.Ops;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.core.types.dsl.SimpleOperation;
 import com.querydsl.jpa.impl.JPAQuery;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 
@@ -28,12 +31,14 @@ public class ImageRatioFilter implements ImageFilter {
      */
     @Override
     public JPAQuery<Image> apply(JPAQuery<Image> query) {
-        float ratio = 1.0f * width / height;
-
-        NumberExpression<Float> expression = IMAGE.width.floatValue().divide(IMAGE.height.floatValue());
-        if (delta == 0)
+        NumberExpression<Integer> expression = IMAGE.width.divide(IMAGE.height);
+        SimpleOperation<Integer> ratio = Expressions.operation(Integer.class, Ops.DIV, Expressions.constant(width), Expressions.constant(height));
+        if (delta == 0) {
+            System.out.println(query.where(expression.eq(ratio)));
             return query.where(expression.eq(ratio));
-        return query.where(expression.loe(ratio + delta)).where(expression.goe(ratio - delta));
+        }
+        return query.where(expression.loe(Expressions.operation(Float.class, Ops.ADD, ratio, Expressions.constant(delta))))
+                .where(expression.loe(Expressions.operation(Float.class, Ops.SUB, ratio, Expressions.constant(delta))));
     }
 
     public int getWidth() {
