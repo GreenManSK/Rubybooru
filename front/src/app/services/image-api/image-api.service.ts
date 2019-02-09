@@ -22,23 +22,23 @@ export class ImageApiService extends RestAPIService {
     super(http);
   }
 
-  getImages( perPage: number, page: number, tags: number[], order: ImageOrder ): Observable<Image[]> {
-    const query = this._builtImageFilterQuery(tags, perPage, page, order);
+  getImages( perPage: number, page: number, tags: number[], order: ImageOrder, filters: string[] = null ): Observable<Image[]> {
+    const query = this._builtImageFilterQuery(tags, filters, perPage, page, order);
     return this.http.get<Image[]>(this.getImageUrl() + query)
       .pipe(
         catchError(this.handleError('getImages', []))
       );
   }
 
-  getImageCount( tags: number[] ): Observable<number> {
-    const query = this._builtImageFilterQuery(tags);
+  getImageCount( tags: number[], filters: string[] = null ): Observable<number> {
+    const query = this._builtImageFilterQuery(tags, filters);
     return this.http.get<number>(this.getImageCountUrl() + query)
       .pipe(
         catchError(this.handleError('getImageCount', 0))
       );
   }
 
-  _builtImageFilterQuery( tags?: number[], perPage?: number, page?: number, order?: ImageOrder ): string {
+  _builtImageFilterQuery( tags?: number[], filters?: string[], perPage?: number, page?: number, order?: ImageOrder ): string {
     let query = '?';
 
     if (perPage !== null) {
@@ -51,6 +51,10 @@ export class ImageApiService extends RestAPIService {
 
     if (tags) {
       tags.forEach(t => query += 'tags=' + t + '&');
+    }
+
+    if (filters) {
+      filters.forEach(t => query += 'filters=' + t + '&');
     }
 
     if (order !== null) {

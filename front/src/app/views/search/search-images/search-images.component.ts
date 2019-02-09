@@ -17,6 +17,7 @@ export class SearchImagesComponent implements OnInit {
   images: Image[];
   page: number;
   tags: number[];
+  filters: string[];
   order: ImageOrder;
   pages = 1;
 
@@ -34,16 +35,17 @@ export class SearchImagesComponent implements OnInit {
   }
 
   onParamChange() {
-    if (this.filterChanged(this.urlParser.getTags())) {
-      this.imageApi.getImageCount(this.urlParser.getTags()).subscribe(count => {
+    if (this.filterChanged()) {
+      this.imageApi.getImageCount(this.urlParser.getTags(), this.urlParser.getFilters()).subscribe(count => {
         this.pages = Math.ceil(count / ImageGalleryComponent.PER_PAGE);
       });
     }
 
     this.page = this.urlParser.getPage();
     this.tags = this.urlParser.getTags();
+    this.filters = this.urlParser.getFilters();
     this.order = this.urlParser.getOrder();
-    this.imageApi.getImages(ImageGalleryComponent.PER_PAGE, this.page, this.tags, this.order).subscribe(images => {
+    this.imageApi.getImages(ImageGalleryComponent.PER_PAGE, this.page, this.tags, this.order, this.filters).subscribe(images => {
       this.images = images;
     });
   }
@@ -52,8 +54,11 @@ export class SearchImagesComponent implements OnInit {
     this.urlParser.navigatePage(page);
   }
 
-  filterChanged( tags: number[] ): boolean {
-    return JSON.stringify(tags) !== JSON.stringify(this.tags);
+  filterChanged(): boolean {
+    if (JSON.stringify(this.urlParser.getFilters()) !== JSON.stringify(this.filters)) {
+      return false;
+    }
+    return JSON.stringify(this.urlParser.getTags()) !== JSON.stringify(this.tags);
   }
 
 }

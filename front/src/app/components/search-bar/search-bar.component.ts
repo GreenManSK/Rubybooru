@@ -7,6 +7,7 @@ import { environment } from "../../../environments/environment";
 import { ImageOrder } from "../../views/search/image-order.enum";
 import { Tag } from "../../entities/tag";
 import { WhispererInputComponent } from "../whisperer-input/whisperer-input.component";
+import { InputParser } from "./input-parser";
 
 @Component({
   selector: 'app-search-bar',
@@ -49,33 +50,29 @@ export class SearchBarComponent implements OnInit {
 
   onParamChange() {
     const tagIds = this.urlParser.getTags();
-    if (tagIds === null || Object.keys(this.idToName).length === 0) {
-      return;
-    }
+    const filters = this.urlParser.getFilters();
+
+
     let value = '';
-    for (const id of tagIds) {
-      value += this.idToName[id] + ' ';
+    if (tagIds !== null && Object.keys(this.idToName).length !== 0) {
+      for (const id of tagIds) {
+        value += this.idToName[id] + ' ';
+      }
     }
+
+    if (filters !== null) {
+      for (const filter of filters) {
+        value += filter + ' ';
+      }
+    }
+
     this.defaultValue = value;
     this.order = this.urlParser.getOrder();
   }
 
   onSubmit() {
-    this.urlParser.navigate(1, this.getTags(), this.order);
-  }
-
-  getTags(): Tag[] {
-    const values = this.whispererInput.getValues();
-    if (values.length === 0) {
-      return null;
-    }
-    const tags = [];
-    for (const v of values) {
-      if (this.nameToId.hasOwnProperty(v)) {
-        tags.push(new Tag(this.nameToId[v], v, TagType.GENERAL, 0));
-      }
-    }
-    return tags;
+    const parser = new InputParser(this.whispererInput.getValues(), this.nameToId);
+    this.urlParser.navigate(1, parser.getTags(), this.order, parser.getFilters());
   }
 
 }

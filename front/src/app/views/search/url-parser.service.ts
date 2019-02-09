@@ -11,6 +11,7 @@ export class UrlParserService {
   private static PAGE = 'page';
   private static TAGS = 'tags';
   private static ORDER = 'order';
+  private static FILTERS = 'filters';
 
   constructor( private router: Router, private route: ActivatedRoute ) {
 
@@ -35,6 +36,17 @@ export class UrlParserService {
     return tags.map(tag => parseInt(tag.replace(/^(\d+)_.*/, '$1'), 10));
   }
 
+  getFilters(): string[] {
+    let filters = this.route.snapshot.queryParams[UrlParserService.FILTERS];
+    if (!filters) {
+      return null;
+    }
+    if (!Array.isArray(filters)) {
+      filters = [filters];
+    }
+    return filters;
+  }
+
   getOrder(): ImageOrder {
     const order = this.route.snapshot.queryParamMap.get(UrlParserService.ORDER);
     if (order && ImageOrder[order]) {
@@ -43,10 +55,11 @@ export class UrlParserService {
     return ImageOrder.NEWEST;
   }
 
-  navigate( page: number, tags: Tag[] = null, order: ImageOrder = ImageOrder.NEWEST ): void {
+  navigate( page: number, tags: Tag[] = null, order: ImageOrder = ImageOrder.NEWEST, filters: string[] = null ): void {
     this.router.navigate(['/' + page], {
       queryParams: {
         tags: tags.map(tag => tag.id + '_' + tag.name),
+        filters: filters,
         order: order
       }
     });
