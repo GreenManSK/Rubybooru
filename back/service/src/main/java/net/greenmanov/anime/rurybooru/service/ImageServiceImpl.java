@@ -5,6 +5,7 @@ import net.greenmanov.anime.rurybooru.api.enums.Order;
 import net.greenmanov.anime.rurybooru.persistance.dao.ImageDao;
 import net.greenmanov.anime.rurybooru.persistance.entity.Image;
 import net.greenmanov.anime.rurybooru.persistance.entity.QImage;
+import net.greenmanov.anime.rurybooru.persistance.filters.ImageFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,8 +66,8 @@ public class ImageServiceImpl implements ImageService {
      * @return List of images
      */
     @Override
-    public List<Image> getImages(List<Long> tagIds, Long dirId, Order order, Integer perPage, Integer page) {
-        return imageDao.getImages(tagIds, null, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
+    public List<Image> getImages(List<Long> tagIds, List<ImageFilter> filters, Long dirId, Order order, Integer perPage, Integer page) {
+        return imageDao.getImages(tagIds, filters, dirId, getSortColumn(order), order == Order.NEWEST, perPage, page);
     }
 
     /**
@@ -77,8 +78,8 @@ public class ImageServiceImpl implements ImageService {
      * @return Number of images
      */
     @Override
-    public Long getImagesCount(List<Long> tagIds, Long dirId) {
-        return imageDao.getImagesCount(tagIds, null, dirId);
+    public Long getImagesCount(List<Long> tagIds, List<ImageFilter> filters, Long dirId) {
+        return imageDao.getImagesCount(tagIds, filters, dirId);
     }
 
     private ComparableExpressionBase getSortColumn(Order order) {

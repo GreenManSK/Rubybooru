@@ -4,10 +4,12 @@ import net.greenmanov.anime.rurybooru.api.dto.GetImagesDTO;
 import net.greenmanov.anime.rurybooru.api.dto.ImageDTO;
 import net.greenmanov.anime.rurybooru.api.facade.ImageFacade;
 import net.greenmanov.anime.rurybooru.persistance.RubybooruConfig;
+import net.greenmanov.anime.rurybooru.persistance.filters.ImageFilter;
 import net.greenmanov.anime.rurybooru.persistance.utils.DirUtils;
 import net.greenmanov.anime.rurybooru.service.BeanMappingService;
 import net.greenmanov.anime.rurybooru.service.ImageFileService;
 import net.greenmanov.anime.rurybooru.service.ImageService;
+import net.greenmanov.anime.rurybooru.service.helper.FilterDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,14 +70,15 @@ public class ImageFacadeImpl implements ImageFacade {
 
     /**
      * Return file name of resized version of image saved in tmp path
-     * @param id image id
-     * @param width image width
+     *
+     * @param id     image id
+     * @param width  image width
      * @param height image height
      * @return File name
      */
     @Override
     public String getTmpImage(long id, int width, int height) {
-       return imageFileService.resize(imageService.getById(id), width, height);
+        return imageFileService.resize(imageService.getById(id), width, height);
     }
 
     /**
@@ -86,8 +89,15 @@ public class ImageFacadeImpl implements ImageFacade {
      */
     @Override
     public List<ImageDTO> getImages(GetImagesDTO dto) {
-        return mapper.mapTo(imageService.getImages(dto.getTags(), dto.getDir(), dto.getOrder(), dto.getPerPage(),
-                dto.getPage()), ImageDTO.class);
+        return mapper.mapTo(
+                imageService.getImages(
+                        dto.getTags(),
+                        toFilters(dto.getFilters()),
+                        dto.getDir(),
+                        dto.getOrder(),
+                        dto.getPerPage(),
+                        dto.getPage()),
+                ImageDTO.class);
     }
 
     /**
@@ -98,6 +108,12 @@ public class ImageFacadeImpl implements ImageFacade {
      */
     @Override
     public Long getImagesCount(GetImagesDTO dto) {
-        return imageService.getImagesCount(dto.getTags(), dto.getDir());
+        return imageService.getImagesCount(dto.getTags(), toFilters(dto.getFilters()), dto.getDir());
+    }
+
+    private List<ImageFilter> toFilters(List<String> strings) {
+        if (strings == null)
+            return null;
+        return FilterDecoder.decode(strings);
     }
 }

@@ -76,7 +76,7 @@ public interface ImageDao {
      * Retrieve images that satisfy provided parameters. Pages are counted from 1
      *
      * @param tagIds     List of tag IDs that image have to have or {@code null} if tag filtering is not needed
-     * @param filters Image filters
+     * @param filters    Image filters
      * @param dirId      ID of the dir that contains images or {@code null} if any dir is ok
      * @param sortColumn Specify column to sort by
      * @param desc       Specify ordering of images for pagination

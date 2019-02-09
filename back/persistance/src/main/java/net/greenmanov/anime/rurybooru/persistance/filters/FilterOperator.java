@@ -16,4 +16,18 @@ public enum FilterOperator {
     public String getOperator() {
         return operator;
     }
+
+    /**
+     * Transform string value to operator
+     *
+     * @param value string representation
+     * @return operator, if non match EQ is returned
+     */
+    public static FilterOperator fromString(String value) {
+        for (FilterOperator o : FilterOperator.values()) {
+            if (o.getOperator().equals(value))
+                return o;
+        }
+        return EQ;
+    }
 }

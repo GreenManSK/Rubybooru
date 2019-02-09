@@ -15,6 +15,7 @@ import java.util.Objects;
  */
 public class GetImagesDTO {
     private List<Long> tags;
+    private List<String> filters;
     private Long dir;
 
     private Order order;
@@ -36,6 +37,14 @@ public class GetImagesDTO {
 
     public void setTags(List<Long> tags) {
         this.tags = tags;
+    }
+
+    public List<String> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(List<String> filters) {
+        this.filters = filters;
     }
 
     public Long getDir() {
@@ -76,6 +85,7 @@ public class GetImagesDTO {
         if (!(o instanceof GetImagesDTO)) return false;
         GetImagesDTO that = (GetImagesDTO) o;
         return Objects.equals(getTags(), that.getTags()) &&
+                Objects.equals(getFilters(), that.getFilters()) &&
                 Objects.equals(dir, that.dir) &&
                 getOrder() == that.getOrder() &&
                 Objects.equals(getPerPage(), that.getPerPage()) &&
@@ -84,7 +94,7 @@ public class GetImagesDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTags(), dir, getOrder(), getPerPage(), getPage());
+        return Objects.hash(getTags(), getFilters(), dir, getOrder(), getPerPage(), getPage());
     }
 
 
@@ -92,6 +102,7 @@ public class GetImagesDTO {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("tags", tags)
+                .add("filters", filters)
                 .add("dir", dir)
                 .add("order", order)
                 .add("perPage", perPage)

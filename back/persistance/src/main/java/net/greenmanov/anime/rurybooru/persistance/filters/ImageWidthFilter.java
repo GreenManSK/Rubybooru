@@ -38,4 +38,12 @@ public class ImageWidthFilter implements ImageFilter {
                 return query.where(IMAGE.width.eq(width));
         }
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public FilterOperator getOperator() {
+        return operator;
+    }
 }
