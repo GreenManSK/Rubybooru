@@ -34,11 +34,10 @@ public class ImageRatioFilter implements ImageFilter {
         NumberExpression<Integer> expression = IMAGE.width.divide(IMAGE.height);
         SimpleOperation<Integer> ratio = Expressions.operation(Integer.class, Ops.DIV, Expressions.constant(width), Expressions.constant(height));
         if (delta == 0) {
-            System.out.println(query.where(expression.eq(ratio)));
             return query.where(expression.eq(ratio));
         }
-        return query.where(expression.loe(Expressions.operation(Float.class, Ops.ADD, ratio, Expressions.constant(delta))))
-                .where(expression.loe(Expressions.operation(Float.class, Ops.SUB, ratio, Expressions.constant(delta))));
+        return query.where(expression.loe(Expressions.operation(Integer.class, Ops.ADD, ratio, Expressions.constant(delta))))
+                .where(expression.goe(Expressions.operation(Integer.class, Ops.SUB, ratio, Expressions.constant(delta))));
     }
 
     public int getWidth() {
