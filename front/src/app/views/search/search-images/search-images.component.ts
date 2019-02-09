@@ -56,7 +56,7 @@ export class SearchImagesComponent implements OnInit {
 
   filterChanged(): boolean {
     if (JSON.stringify(this.urlParser.getFilters()) !== JSON.stringify(this.filters)) {
-      return false;
+      return true;
     }
     return JSON.stringify(this.urlParser.getTags()) !== JSON.stringify(this.tags);
   }
