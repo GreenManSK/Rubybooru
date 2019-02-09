@@ -28,8 +28,9 @@ public class ImageRatioFilter implements ImageFilter {
      */
     @Override
     public JPAQuery<Image> apply(JPAQuery<Image> query) {
-        double ratio = 1.0 * width / height;
-        NumberExpression<Double> expression = IMAGE.width.doubleValue().divide(IMAGE.height.doubleValue());
+        float ratio = 1.0f * width / height;
+
+        NumberExpression<Float> expression = IMAGE.width.floatValue().divide(IMAGE.height.floatValue());
         if (delta == 0)
             return query.where(expression.eq(ratio));
         return query.where(expression.loe(ratio + delta)).where(expression.goe(ratio - delta));
